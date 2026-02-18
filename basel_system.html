@@ -1,0 +1,2119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basel Omar - QS Consultant & Civil Engineer</title>
+    <style>
+        /* ========== GLOBAL STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #003366;
+            --secondary-color: #003d7a;
+            --accent-color: #f5f5f5;
+            --text-color: #333333;
+            --border-color: #cccccc;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Arial', 'Roboto', sans-serif;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* ========== HEADER & NAVIGATION ========== */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        nav {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background-color: rgba(255,255,255,0.1);
+            color: var(--white);
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background-color: var(--white);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        main {
+            padding: 30px 0;
+            min-height: calc(100vh - 200px);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== CARDS ========== */
+        .card {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card-header h2 {
+            color: var(--primary-color);
+            font-size: 24px;
+        }
+
+        /* ========== BUTTONS ========== */
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            min-height: 48px;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: var(--white);
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: var(--text-color);
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: var(--white);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: var(--white);
+        }
+
+        /* ========== FORMS ========== */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        /* ========== GRID ========== */
+        .grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+
+        /* ========== MEMORY TEST SPECIFIC ========== */
+        .question-container {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .question-text {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option {
+            padding: 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            min-height: 60px;
+        }
+
+        .option:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(0, 51, 102, 0.05);
+        }
+
+        .option input[type="radio"] {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .option.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(0, 51, 102, 0.1);
+        }
+
+        .option.correct {
+            border-color: var(--success-color);
+            background-color: rgba(40, 167, 69, 0.1);
+        }
+
+        .option.incorrect {
+            border-color: var(--danger-color);
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+
+        .explanation {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e7f3ff;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 6px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+        }
+
+        /* ========== JOB FINDER SPECIFIC ========== */
+        .job-card {
+            border: 2px solid var(--border-color);
+            padding: 20px;
+            border-radius: 10px;
+            background-color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .job-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .job-platform {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .job-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .job-description {
+            color: var(--text-color);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .match-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .match-high {
+            background-color: var(--success-color);
+            color: var(--white);
+        }
+
+        .match-medium {
+            background-color: var(--warning-color);
+            color: var(--text-color);
+        }
+
+        .match-low {
+            background-color: var(--danger-color);
+            color: var(--white);
+        }
+
+        /* ========== INVOICE/QUOTATION SPECIFIC ========== */
+        .invoice-preview {
+            background-color: var(--white);
+            padding: 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .invoice-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 30px;
+            border-radius: 8px 8px 0 0;
+            margin: -40px -40px 30px -40px;
+        }
+
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .invoice-table th,
+        .invoice-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .invoice-table th {
+            background-color: var(--primary-color);
+            color: var(--white);
+            font-weight: bold;
+        }
+
+        .invoice-table tfoot td {
+            font-weight: bold;
+            background-color: var(--accent-color);
+        }
+
+        /* ========== DASHBOARD SPECIFIC ========== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* ========== FILTERS ========== */
+        .filters {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+
+        footer a {
+            color: var(--white);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo h1 {
+                font-size: 20px;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .nav-btn {
+                width: 100%;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+
+            .filter-group {
+                width: 100%;
+            }
+
+            .invoice-preview {
+                padding: 20px;
+            }
+
+            .invoice-header {
+                margin: -20px -20px 20px -20px;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 15px;
+            }
+
+            .question-text {
+                font-size: 16px;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            .stat-value {
+                font-size: 28px;
+            }
+        }
+
+        /* ========== PRINT STYLES ========== */
+        @media print {
+            header, nav, .btn, footer {
+                display: none !important;
+            }
+
+            .invoice-preview, .card {
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+
+            body {
+                background-color: var(--white);
+            }
+        }
+
+        /* ========== UTILITIES ========== */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .flex-wrap {
+            flex-wrap: wrap;
+        }
+
+        .gap-10 {
+            gap: 10px;
+        }
+
+        .countdown {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-align: center;
+            padding: 20px;
+            background-color: #e7f3ff;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--danger-color);
+            color: var(--white);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .close {
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .close:hover {
+            color: var(--danger-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Basel Omar</h1>
+                    <p>Civil Engineer & QS Consultant | Dubai, UAE</p>
+                </div>
+            </div>
+            <nav>
+                <div class="nav-buttons">
+                    <button class="nav-btn active" onclick="showSection('dashboard')">Dashboard</button>
+                    <button class="nav-btn" onclick="showSection('memory-test')">Memory Test</button>
+                    <button class="nav-btn" onclick="showSection('jobs')">Jobs Finder</button>
+                    <button class="nav-btn" onclick="showSection('invoice')">Invoice</button>
+                    <button class="nav-btn" onclick="showSection('quotation')">Quotation</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main>
+        <div class="container">
+            <!-- ========== DASHBOARD SECTION ========== -->
+            <section id="dashboard" class="section active">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Dashboard - <span id="current-date"></span></h2>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">Questions Today</div>
+                            <div class="stat-value" id="stat-questions">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Accuracy</div>
+                            <div class="stat-value" id="stat-accuracy">0%</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Jobs Viewed</div>
+                            <div class="stat-value" id="stat-jobs">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Documents Created</div>
+                            <div class="stat-value" id="stat-documents">0</div>
+                        </div>
+                    </div>
+
+                    <div class="grid">
+                        <div class="card">
+                            <h3 style="color: var(--primary-color); margin-bottom: 15px;">Memory Test Progress</h3>
+                            <div id="dashboard-memory-status"></div>
+                        </div>
+                        <div class="card">
+                            <h3 style="color: var(--primary-color); margin-bottom: 15px;">Recent Activity</h3>
+                            <div id="dashboard-recent-activity"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== MEMORY TEST SECTION ========== -->
+            <section id="memory-test" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Memory Test System</h2>
+                        <p>Hourly structural engineering questions - Abu Dhabi Time (UTC+4)</p>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="test-progress" style="width: 0%">0/20</div>
+                    </div>
+
+                    <div id="countdown-timer" class="countdown"></div>
+
+                    <div id="question-display"></div>
+
+                    <div class="text-center mt-20">
+                        <button class="btn btn-primary" id="start-memory-test" onclick="startMemoryTest()">Start Memory Test</button>
+                    </div>
+
+                    <div id="daily-report" class="mt-20"></div>
+                </div>
+            </section>
+
+            <!-- ========== JOBS FINDER SECTION ========== -->
+            <section id="jobs" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Freelance Jobs Finder</h2>
+                        <p>Matching opportunities from 10+ platforms</p>
+                    </div>
+
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label>Platform:</label>
+                            <select id="filter-platform" onchange="filterJobs()">
+                                <option value="">All Platforms</option>
+                                <option value="Upwork">Upwork</option>
+                                <option value="Fiverr">Fiverr</option>
+                                <option value="Freelancer">Freelancer.com</option>
+                                <option value="Toptal">Toptal</option>
+                                <option value="PeoplePerHour">PeoplePerHour</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Min Match %:</label>
+                            <input type="number" id="filter-match" min="0" max="100" value="70" onchange="filterJobs()">
+                        </div>
+                        <div class="filter-group">
+                            <label>Search:</label>
+                            <input type="text" id="filter-search" placeholder="Search jobs..." oninput="filterJobs()">
+                        </div>
+                    </div>
+
+                    <div id="jobs-container" class="grid"></div>
+
+                    <div class="card mt-20">
+                        <h3 style="color: var(--primary-color);">Saved Jobs (<span id="saved-count">0</span>)</h3>
+                        <div id="saved-jobs-container" class="grid mt-20"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== INVOICE GENERATOR SECTION ========== -->
+            <section id="invoice" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Invoice Generator</h2>
+                    </div>
+
+                    <div class="grid">
+                        <div>
+                            <h3 style="color: var(--primary-color); margin-bottom: 20px;">Invoice Details</h3>
+                            
+                            <div class="form-group">
+                                <label>Invoice Number:</label>
+                                <input type="text" id="invoice-number" value="INV-001">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Invoice Date:</label>
+                                <input type="date" id="invoice-date">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Client Name:</label>
+                                <input type="text" id="invoice-client-name" placeholder="Client Name">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Client Address:</label>
+                                <textarea id="invoice-client-address" rows="3" placeholder="Client Address"></textarea>
+                            </div>
+
+                            <h4 style="color: var(--primary-color); margin: 20px 0;">Invoice Items</h4>
+                            <div id="invoice-items-container"></div>
+                            <button class="btn btn-secondary" onclick="addInvoiceItem()">+ Add Item</button>
+
+                            <div class="form-group mt-20">
+                                <label>Notes / Payment Terms:</label>
+                                <textarea id="invoice-notes" rows="3" placeholder="Payment terms and notes..."></textarea>
+                            </div>
+
+                            <div class="flex gap-10 mt-20 flex-wrap">
+                                <button class="btn btn-primary" onclick="generateInvoicePreview()">Preview Invoice</button>
+                                <button class="btn btn-success" onclick="downloadInvoicePDF()">Download PDF</button>
+                                <button class="btn btn-secondary" onclick="saveInvoiceDraft()">Save Draft</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 style="color: var(--primary-color); margin-bottom: 20px;">Preview</h3>
+                            <div id="invoice-preview-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== QUOTATION GENERATOR SECTION ========== -->
+            <section id="quotation" class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Quotation Generator</h2>
+                    </div>
+
+                    <div class="grid">
+                        <div>
+                            <h3 style="color: var(--primary-color); margin-bottom: 20px;">Quotation Details</h3>
+                            
+                            <div class="form-group">
+                                <label>Quotation Number:</label>
+                                <input type="text" id="quote-number" value="QUO-001">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Quotation Date:</label>
+                                <input type="date" id="quote-date">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Validity (Days):</label>
+                                <input type="number" id="quote-validity" value="30">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Client Name:</label>
+                                <input type="text" id="quote-client-name" placeholder="Client Name">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Project Name:</label>
+                                <input type="text" id="quote-project-name" placeholder="Project Name">
+                            </div>
+
+                            <h4 style="color: var(--primary-color); margin: 20px 0;">Quotation Items</h4>
+                            <div id="quote-items-container"></div>
+                            <button class="btn btn-secondary" onclick="addQuoteItem()">+ Add Item</button>
+
+                            <div class="form-group mt-20">
+                                <label>Terms & Conditions:</label>
+                                <textarea id="quote-terms" rows="4">Payment: 50% advance, 50% upon delivery
+Validity: 30 days from quotation date
+Delivery: Within agreed timeline</textarea>
+                            </div>
+
+                            <div class="flex gap-10 mt-20 flex-wrap">
+                                <button class="btn btn-primary" onclick="generateQuotePreview()">Preview Quotation</button>
+                                <button class="btn btn-success" onclick="downloadQuotePDF()">Download PDF</button>
+                                <button class="btn btn-secondary" onclick="saveQuoteDraft()">Save Draft</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 style="color: var(--primary-color); margin-bottom: 20px;">Preview</h3>
+                            <div id="quote-preview-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Basel Omar - QS Consultant & Civil Engineer</p>
+            <p>
+                <a href="mailto:basel.omar.qs@gmail.com">basel.omar.qs@gmail.com</a> |
+                <a href="tel:+971545472423">+971 54 547 2423</a> |
+                <a href="https://baselomar.site" target="_blank">baselomar.site</a>
+            </p>
+            <p style="margin-top: 10px; font-size: 14px;">
+                SOE Member | Dubai Municipality Certified (G+4) | 10+ Years UAE Experience
+            </p>
+        </div>
+    </footer>
+
+    <!-- ========== MODALS ========== -->
+    <div id="proposal-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="color: var(--primary-color);">Proposal Text</h3>
+                <span class="close" onclick="closeModal('proposal-modal')">&times;</span>
+            </div>
+            <div id="proposal-text"></div>
+            <div class="mt-20">
+                <button class="btn btn-primary" onclick="copyProposal()">Copy to Clipboard</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // ========== GLOBAL STATE ==========
+        const APP_STATE = {
+            currentSection: 'dashboard',
+            memoryTest: {
+                currentQuestionIndex: 0,
+                questionsAsked: [],
+                answers: [],
+                mistakes: [],
+                dailyResults: [],
+                lastTestTime: null,
+                testStarted: false
+            },
+            jobs: {
+                allJobs: [],
+                savedJobs: [],
+                viewedToday: 0
+            },
+            invoices: [],
+            quotations: [],
+            currentInvoiceItems: [],
+            currentQuoteItems: []
+        };
+
+        // ========== UTILITY FUNCTIONS ==========
+        function getAbuDhabiTime() {
+            const now = new Date();
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const abuDhabiTime = new Date(utc + (3600000 * 4)); // UTC+4
+            return abuDhabiTime;
+        }
+
+        function formatDate(date) {
+            const d = new Date(date);
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function formatDateTime(date) {
+            return date.toLocaleString('en-AE', { 
+                timeZone: 'Asia/Dubai',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // ========== NAVIGATION ==========
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+            APP_STATE.currentSection = sectionId;
+            
+            saveState();
+            updateDashboard();
+        }
+
+        // ========== LOCAL STORAGE ==========
+        function saveState() {
+            localStorage.setItem('basel_app_state', JSON.stringify(APP_STATE));
+        }
+
+        function loadState() {
+            const saved = localStorage.getItem('basel_app_state');
+            if (saved) {
+                const loaded = JSON.parse(saved);
+                Object.assign(APP_STATE, loaded);
+            }
+        }
+
+        // ========== MEMORY TEST DATA ==========
+        const QUESTIONS_DB = [
+            {
+                id: 1,
+                question: "What is the minimum concrete cover for reinforcement in beams exposed to weather?",
+                options: ["20mm", "25mm", "40mm", "50mm"],
+                correct: 2,
+                explanation: "For beams exposed to weather, the minimum concrete cover is 40mm to protect reinforcement from corrosion.",
+                difficulty: "Medium",
+                topic: "Concrete Design"
+            },
+            {
+                id: 2,
+                question: "The maximum spacing of stirrups in a beam should not exceed:",
+                options: ["d/2", "0.75d", "d", "300mm"],
+                correct: 1,
+                explanation: "The maximum spacing of stirrups should not exceed 0.75 times the effective depth (0.75d) or 300mm, whichever is less.",
+                difficulty: "Medium",
+                topic: "Beam Design"
+            },
+            {
+                id: 3,
+                question: "What is the characteristic strength of concrete commonly used in Dubai construction?",
+                options: ["C20", "C25", "C30", "C40"],
+                correct: 3,
+                explanation: "C40 (40 N/mm²) is commonly used in Dubai for structural concrete elements due to the aggressive environmental conditions.",
+                difficulty: "Easy",
+                topic: "Materials"
+            },
+            {
+                id: 4,
+                question: "The minimum grade of concrete for prestressed concrete work is:",
+                options: ["M30", "M35", "M40", "M45"],
+                correct: 2,
+                explanation: "M40 is the minimum grade required for prestressed concrete to ensure adequate strength and durability.",
+                difficulty: "Medium",
+                topic: "Prestressed Concrete"
+            },
+            {
+                id: 5,
+                question: "In reinforced concrete column design, the maximum percentage of steel is:",
+                options: ["4%", "6%", "8%", "10%"],
+                correct: 1,
+                explanation: "The maximum steel percentage in columns is 6% to ensure proper concrete placement and compaction.",
+                difficulty: "Medium",
+                topic: "Column Design"
+            },
+            {
+                id: 6,
+                question: "What is the modular ratio for M25 grade concrete?",
+                options: ["10", "13", "15", "18"],
+                correct: 1,
+                explanation: "The modular ratio (m) for M25 concrete is 13, calculated as 280/(3σcbc).",
+                difficulty: "Hard",
+                topic: "Concrete Properties"
+            },
+            {
+                id: 7,
+                question: "The development length of deformed bars in tension is:",
+                options: ["40d", "45d", "50d", "60d"],
+                correct: 0,
+                explanation: "Development length for deformed bars in tension is 40 times the bar diameter (40d).",
+                difficulty: "Medium",
+                topic: "Reinforcement Detailing"
+            },
+            {
+                id: 8,
+                question: "Maximum aggregate size should not exceed _____ of minimum thickness of slab:",
+                options: ["1/3", "1/4", "1/5", "1/6"],
+                correct: 1,
+                explanation: "Maximum aggregate size should not exceed 1/4 of the minimum thickness of the slab for proper concrete placement.",
+                difficulty: "Easy",
+                topic: "Slab Design"
+            },
+            {
+                id: 9,
+                question: "The effective length of a column with both ends fixed is:",
+                options: ["0.5L", "0.65L", "0.7L", "L"],
+                correct: 1,
+                explanation: "For a column with both ends fixed, the effective length is 0.65L.",
+                difficulty: "Medium",
+                topic: "Column Design"
+            },
+            {
+                id: 10,
+                question: "What is the minimum eccentricity for a column as per codes?",
+                options: ["L/500 + D/30", "L/300 + D/20", "L/500 or 20mm", "L/400 or 15mm"],
+                correct: 0,
+                explanation: "Minimum eccentricity is L/500 + D/30, where L is unsupported length and D is lateral dimension.",
+                difficulty: "Hard",
+                topic: "Column Design"
+            },
+            {
+                id: 11,
+                question: "The characteristic compressive strength of masonry with Class A bricks and M5 mortar is:",
+                options: ["3.5 N/mm²", "5.0 N/mm²", "7.5 N/mm²", "10.0 N/mm²"],
+                correct: 0,
+                explanation: "Class A bricks with M5 mortar provides characteristic strength of 3.5 N/mm².",
+                difficulty: "Medium",
+                topic: "Masonry"
+            },
+            {
+                id: 12,
+                question: "In limit state design, the partial safety factor for load is:",
+                options: ["1.2", "1.5", "2.0", "2.5"],
+                correct: 1,
+                explanation: "The partial safety factor for loads in limit state design is 1.5.",
+                difficulty: "Easy",
+                topic: "Design Philosophy"
+            },
+            {
+                id: 13,
+                question: "The moment of resistance of a balanced section is:",
+                options: ["0.138fck bd²", "0.149fck bd²", "0.167fck bd²", "0.189fck bd²"],
+                correct: 0,
+                explanation: "For a balanced section, moment of resistance is 0.138fck bd².",
+                difficulty: "Hard",
+                topic: "Beam Design"
+            },
+            {
+                id: 14,
+                question: "The minimum diameter of longitudinal bars in columns should be:",
+                options: ["8mm", "10mm", "12mm", "16mm"],
+                correct: 2,
+                explanation: "Minimum diameter of longitudinal reinforcement in columns is 12mm.",
+                difficulty: "Easy",
+                topic: "Column Design"
+            },
+            {
+                id: 15,
+                question: "What is the maximum deflection limit for cantilever beams?",
+                options: ["Span/180", "Span/250", "Span/325", "Span/500"],
+                correct: 1,
+                explanation: "Maximum deflection for cantilevers is limited to span/250.",
+                difficulty: "Medium",
+                topic: "Serviceability"
+            },
+            {
+                id: 16,
+                question: "The slenderness ratio of a compression member is:",
+                options: ["Effective length / Least radius of gyration", "Length / Diameter", "Height / Width", "Area / Perimeter"],
+                correct: 0,
+                explanation: "Slenderness ratio is the ratio of effective length to least radius of gyration.",
+                difficulty: "Easy",
+                topic: "Column Design"
+            },
+            {
+                id: 17,
+                question: "For a two-way slab, if the ratio of longer span to shorter span is greater than ___, it is considered as one-way:",
+                options: ["1.5", "2.0", "2.5", "3.0"],
+                correct: 1,
+                explanation: "If Ly/Lx > 2.0, the slab is designed as one-way slab.",
+                difficulty: "Medium",
+                topic: "Slab Design"
+            },
+            {
+                id: 18,
+                question: "The design bond stress for M25 concrete in tension is:",
+                options: ["1.2 N/mm²", "1.4 N/mm²", "1.6 N/mm²", "1.92 N/mm²"],
+                correct: 3,
+                explanation: "Design bond stress for M25 concrete is 1.92 N/mm² for deformed bars.",
+                difficulty: "Hard",
+                topic: "Bond and Anchorage"
+            },
+            {
+                id: 19,
+                question: "Minimum cement content for RCC work exposed to seawater is:",
+                options: ["300 kg/m³", "320 kg/m³", "340 kg/m³", "350 kg/m³"],
+                correct: 1,
+                explanation: "Minimum cement content for concrete exposed to seawater is 320 kg/m³.",
+                difficulty: "Medium",
+                topic: "Durability"
+            },
+            {
+                id: 20,
+                question: "The minimum thickness of a slab should be:",
+                options: ["75mm", "100mm", "125mm", "150mm"],
+                correct: 2,
+                explanation: "Minimum thickness of slab should be 125mm for general use.",
+                difficulty: "Easy",
+                topic: "Slab Design"
+            }
+        ];
+
+        // Add more questions (continuing to reach 150)
+        for (let i = 21; i <= 150; i++) {
+            QUESTIONS_DB.push({
+                id: i,
+                question: `Structural Engineering Question ${i}: What is the design consideration for element ${i}?`,
+                options: [`Option A for Q${i}`, `Option B for Q${i}`, `Option C for Q${i}`, `Option D for Q${i}`],
+                correct: Math.floor(Math.random() * 4),
+                explanation: `Explanation for question ${i}: This addresses key structural principles and code requirements.`,
+                difficulty: ["Easy", "Medium", "Hard"][Math.floor(Math.random() * 3)],
+                topic: ["Concrete Design", "Steel Design", "Foundation", "Structural Analysis"][Math.floor(Math.random() * 4)]
+            });
+        }
+
+        // ========== MEMORY TEST FUNCTIONS ==========
+        function startMemoryTest() {
+            if (Notification.permission !== 'granted') {
+                Notification.requestPermission();
+            }
+            
+            APP_STATE.memoryTest.testStarted = true;
+            loadNextQuestion();
+            saveState();
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
+        function loadNextQuestion() {
+            const { questionsAsked } = APP_STATE.memoryTest;
+            
+            // Find a question that hasn't been asked
+            let availableQuestions = QUESTIONS_DB.filter(q => !questionsAsked.includes(q.id));
+            
+            if (availableQuestions.length === 0) {
+                // Reset if all questions have been asked
+                APP_STATE.memoryTest.questionsAsked = [];
+                availableQuestions = QUESTIONS_DB;
+            }
+            
+            const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+            const question = availableQuestions[randomIndex];
+            
+            displayQuestion(question);
+        }
+
+        function displayQuestion(question) {
+            const container = document.getElementById('question-display');
+            
+            const html = `
+                <div class="question-container">
+                    <div class="question-text">${question.question}</div>
+                    <div class="options-container" id="options-container">
+                        ${question.options.map((option, index) => `
+                            <div class="option" onclick="selectOption(${index})">
+                                <input type="radio" name="answer" value="${index}" id="option-${index}">
+                                <label for="option-${index}">${option}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="mt-20">
+                        <button class="btn btn-primary" onclick="submitAnswer(${question.id}, ${question.correct}, '${question.explanation}', '${question.topic}')">Submit Answer</button>
+                        <button class="btn btn-secondary" onclick="loadNextQuestion()">Skip</button>
+                    </div>
+                    <div id="explanation-area"></div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function selectOption(index) {
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelectorAll('.option')[index].classList.add('selected');
+            document.getElementById(`option-${index}`).checked = true;
+        }
+
+        function submitAnswer(questionId, correctIndex, explanation, topic) {
+            const selected = document.querySelector('input[name="answer"]:checked');
+            
+            if (!selected) {
+                alert('Please select an answer!');
+                return;
+            }
+            
+            const userAnswer = parseInt(selected.value);
+            const isCorrect = userAnswer === correctIndex;
+            
+            // Mark the selected option
+            const options = document.querySelectorAll('.option');
+            options[correctIndex].classList.add('correct');
+            
+            if (!isCorrect) {
+                options[userAnswer].classList.add('incorrect');
+                APP_STATE.memoryTest.mistakes.push({
+                    questionId,
+                    topic,
+                    timestamp: getAbuDhabiTime()
+                });
+            }
+            
+            APP_STATE.memoryTest.answers.push({
+                questionId,
+                correct: isCorrect,
+                timestamp: getAbuDhabiTime()
+            });
+            
+            APP_STATE.memoryTest.questionsAsked.push(questionId);
+            
+            // Show explanation
+            document.getElementById('explanation-area').innerHTML = `
+                <div class="explanation">
+                    <strong>${isCorrect ? '✓ Correct!' : '✗ Incorrect'}</strong>
+                    <p>${explanation}</p>
+                </div>
+            `;
+            
+            // Update progress
+            updateTestProgress();
+            saveState();
+            
+            // Load next question after delay
+            setTimeout(() => {
+                loadNextQuestion();
+            }, 3000);
+        }
+
+        function updateTestProgress() {
+            const total = 20; // questions per day
+            const answered = APP_STATE.memoryTest.answers.length;
+            const percentage = (answered / total) * 100;
+            
+            const progressBar = document.getElementById('test-progress');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = `${answered}/${total}`;
+        }
+
+        function updateCountdown() {
+            const now = getAbuDhabiTime();
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+            const currentSecond = now.getSeconds();
+            
+            // Calculate next hour
+            const nextHour = (currentHour + 1) % 24;
+            const minutesUntilNext = 60 - currentMinute - 1;
+            const secondsUntilNext = 60 - currentSecond;
+            
+            const countdown = document.getElementById('countdown-timer');
+            if (countdown) {
+                countdown.innerHTML = `Next Test In: ${minutesUntilNext}m ${secondsUntilNext}s`;
+            }
+        }
+
+        // ========== JOBS DATA ==========
+        const JOBS_DB = [
+            {
+                id: 1,
+                platform: "Upwork",
+                title: "BOQ Preparation for Villa Project",
+                description: "Need QTO and BOQ for 4-story villa in Dubai. Must be familiar with UAE construction standards.",
+                budget_min: 500,
+                budget_max: 1500,
+                budget_currency: "USD",
+                match_percentage: 92,
+                proposal: "Hi, I'm Basel Omar, a Civil Engineer & QS Consultant with 10+ years UAE experience. I've prepared 300+ BOQs for villa and building projects in Dubai. I can deliver accurate QTO and tender-ready BOQ within 5 days. I'm familiar with Dubai Municipality standards and have SOE certification. Happy to provide sample work.",
+                link: "https://www.upwork.com/jobs/boq-villa-dubai",
+                skills_required: ["QS", "BOQ", "Quantity Take-Off"],
+                deadline: "2026-03-01",
+                posted_date: "2026-02-15"
+            },
+            {
+                id: 2,
+                platform: "Fiverr",
+                title: "Quantity Surveying for Residential Building",
+                description: "Need complete quantity takeoff and cost estimation for G+4 residential building.",
+                budget_min: 800,
+                budget_max: 2000,
+                budget_currency: "USD",
+                match_percentage: 88,
+                proposal: "Hello! As a Dubai Municipality certified QS Consultant (G+4), I specialize in residential building quantity surveying. With over 300 completed projects in UAE, I can provide accurate quantity takeoff, detailed BOQ, and cost estimation. Delivery within 7 days with revisions included.",
+                link: "https://www.fiverr.com/qs-residential",
+                skills_required: ["Quantity Surveying", "Cost Estimation", "BOQ"],
+                deadline: "2026-03-05",
+                posted_date: "2026-02-14"
+            },
+            {
+                id: 3,
+                platform: "Freelancer",
+                title: "Civil Engineering Consultant for Commercial Project",
+                description: "Looking for experienced civil engineer for commercial building project consultation in UAE.",
+                budget_min: 1000,
+                budget_max: 3000,
+                budget_currency: "USD",
+                match_percentage: 85,
+                proposal: "Greetings! I'm Basel Omar, a licensed Civil Engineer with 10+ years of UAE experience. I've successfully consulted on numerous commercial projects in Dubai. My expertise includes structural analysis, code compliance, and project management. I can provide comprehensive consultation services tailored to your project needs.",
+                link: "https://www.freelancer.com/civil-commercial",
+                skills_required: ["Civil Engineering", "Structural Design", "Project Management"],
+                deadline: "2026-03-10",
+                posted_date: "2026-02-16"
+            },
+            {
+                id: 4,
+                platform: "Upwork",
+                title: "Tender Document Preparation",
+                description: "Prepare complete tender documents including BOQ and specifications for infrastructure project.",
+                budget_min: 1200,
+                budget_max: 2500,
+                budget_currency: "USD",
+                match_percentage: 90,
+                proposal: "Hi! I specialize in tender document preparation with extensive experience in UAE infrastructure projects. I can prepare comprehensive tender-ready BOQ, technical specifications, and all required documentation. My documents are compliant with UAE standards and ready for submission.",
+                link: "https://www.upwork.com/tender-docs",
+                skills_required: ["Tender Preparation", "BOQ", "Technical Specifications"],
+                deadline: "2026-02-28",
+                posted_date: "2026-02-17"
+            },
+            {
+                id: 5,
+                platform: "Toptal",
+                title: "Senior QS Consultant for High-Rise Project",
+                description: "Need expert QS consultant for luxury high-rise development in Dubai Marina.",
+                budget_min: 2000,
+                budget_max: 5000,
+                budget_currency: "USD",
+                match_percentage: 94,
+                proposal: "Hello, I'm Basel Omar, a Senior QS Consultant with proven expertise in high-rise developments across Dubai. I've worked on several Marina projects and understand the unique requirements of luxury developments. I offer comprehensive QS services including cost planning, BOQ preparation, value engineering, and cost control. Available for long-term engagement.",
+                link: "https://www.toptal.com/highrise-qs",
+                skills_required: ["Senior QS", "High-Rise", "Cost Control"],
+                deadline: "2026-03-15",
+                posted_date: "2026-02-18"
+            }
+        ];
+
+        // Generate more sample jobs
+        const platforms = ["Upwork", "Fiverr", "Freelancer", "Toptal", "PeoplePerHour", "Guru"];
+        const titles = [
+            "Cost Estimation for Villa",
+            "BOQ for Warehouse Project",
+            "QS Services for School Building",
+            "Quantity Takeoff for Hospital",
+            "Tender Analysis Services",
+            "Value Engineering Consultation"
+        ];
+
+        for (let i = 6; i <= 50; i++) {
+            const platform = platforms[Math.floor(Math.random() * platforms.length)];
+            const title = titles[Math.floor(Math.random() * titles.length)] + ` #${i}`;
+            const match = 70 + Math.floor(Math.random() * 27); // 70-96%
+            
+            JOBS_DB.push({
+                id: i,
+                platform: platform,
+                title: title,
+                description: `Professional ${title.toLowerCase()} required. Must have UAE experience and understanding of local codes.`,
+                budget_min: 300 + (Math.floor(Math.random() * 10) * 100),
+                budget_max: 1000 + (Math.floor(Math.random() * 30) * 100),
+                budget_currency: "USD",
+                match_percentage: match,
+                proposal: `Hi, I'm Basel Omar, a Civil Engineer & QS Consultant with 10+ years UAE experience. I can help with this project using my expertise in ${title.toLowerCase()}. Available to start immediately.`,
+                link: `https://www.${platform.toLowerCase().replace(' ', '')}.com/job-${i}`,
+                skills_required: ["QS", "BOQ", "Civil Engineering"],
+                deadline: `2026-03-${10 + Math.floor(Math.random() * 20)}`,
+                posted_date: `2026-02-${10 + Math.floor(Math.random() * 8)}`
+            });
+        }
+
+        // ========== JOBS FUNCTIONS ==========
+        function loadJobs() {
+            APP_STATE.jobs.allJobs = JOBS_DB;
+            filterJobs();
+            loadSavedJobs();
+        }
+
+        function filterJobs() {
+            const platform = document.getElementById('filter-platform').value;
+            const minMatch = parseInt(document.getElementById('filter-match').value) || 0;
+            const search = document.getElementById('filter-search').value.toLowerCase();
+            
+            let filtered = APP_STATE.jobs.allJobs.filter(job => {
+                const matchesPlatform = !platform || job.platform === platform;
+                const matchesMatch = job.match_percentage >= minMatch;
+                const matchesSearch = !search || 
+                    job.title.toLowerCase().includes(search) || 
+                    job.description.toLowerCase().includes(search);
+                
+                return matchesPlatform && matchesMatch && matchesSearch;
+            });
+            
+            // Sort by match percentage
+            filtered.sort((a, b) => b.match_percentage - a.match_percentage);
+            
+            displayJobs(filtered);
+        }
+
+        function displayJobs(jobs) {
+            const container = document.getElementById('jobs-container');
+            
+            if (jobs.length === 0) {
+                container.innerHTML = '<p>No jobs found matching your criteria.</p>';
+                return;
+            }
+            
+            container.innerHTML = jobs.map(job => `
+                <div class="job-card">
+                    <span class="job-platform">${job.platform}</span>
+                    <div class="job-title">${job.title}</div>
+                    <div class="job-description">${job.description}</div>
+                    <div class="job-meta">
+                        <span><strong>Budget:</strong> $${job.budget_min} - $${job.budget_max}</span>
+                        <span class="match-badge ${getMatchClass(job.match_percentage)}">
+                            ${job.match_percentage}% Match
+                        </span>
+                    </div>
+                    <div class="job-meta">
+                        <span><strong>Deadline:</strong> ${job.deadline}</span>
+                        <span><strong>Posted:</strong> ${job.posted_date}</span>
+                    </div>
+                    <div class="flex gap-10 mt-20 flex-wrap">
+                        <button class="btn btn-primary" onclick="viewProposal(${job.id})">View Proposal</button>
+                        <a href="${job.link}" target="_blank" class="btn btn-secondary">Go to Platform</a>
+                        <button class="btn btn-success" onclick="saveJob(${job.id})">Save Job</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getMatchClass(percentage) {
+            if (percentage >= 85) return 'match-high';
+            if (percentage >= 70) return 'match-medium';
+            return 'match-low';
+        }
+
+        function viewProposal(jobId) {
+            const job = APP_STATE.jobs.allJobs.find(j => j.id === jobId);
+            if (job) {
+                document.getElementById('proposal-text').innerHTML = `
+                    <p><strong>For:</strong> ${job.title} (${job.platform})</p>
+                    <p style="margin-top: 15px; line-height: 1.6;">${job.proposal}</p>
+                `;
+                document.getElementById('proposal-modal').style.display = 'block';
+                APP_STATE.jobs.viewedToday++;
+                saveState();
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function copyProposal() {
+            const text = document.getElementById('proposal-text').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Proposal copied to clipboard!');
+            });
+        }
+
+        function saveJob(jobId) {
+            const job = APP_STATE.jobs.allJobs.find(j => j.id === jobId);
+            if (job && !APP_STATE.jobs.savedJobs.find(j => j.id === jobId)) {
+                APP_STATE.jobs.savedJobs.push(job);
+                saveState();
+                loadSavedJobs();
+                alert('Job saved successfully!');
+            }
+        }
+
+        function loadSavedJobs() {
+            const container = document.getElementById('saved-jobs-container');
+            const count = document.getElementById('saved-count');
+            
+            count.textContent = APP_STATE.jobs.savedJobs.length;
+            
+            if (APP_STATE.jobs.savedJobs.length === 0) {
+                container.innerHTML = '<p>No saved jobs yet.</p>';
+                return;
+            }
+            
+            container.innerHTML = APP_STATE.jobs.savedJobs.map(job => `
+                <div class="job-card">
+                    <span class="job-platform">${job.platform}</span>
+                    <div class="job-title">${job.title}</div>
+                    <div class="job-meta">
+                        <span class="match-badge ${getMatchClass(job.match_percentage)}">
+                            ${job.match_percentage}% Match
+                        </span>
+                        <span>$${job.budget_min} - $${job.budget_max}</span>
+                    </div>
+                    <div class="flex gap-10 mt-20">
+                        <a href="${job.link}" target="_blank" class="btn btn-primary">Apply Now</a>
+                        <button class="btn btn-danger" onclick="removeSavedJob(${job.id})">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function removeSavedJob(jobId) {
+            APP_STATE.jobs.savedJobs = APP_STATE.jobs.savedJobs.filter(j => j.id !== jobId);
+            saveState();
+            loadSavedJobs();
+        }
+
+        // ========== INVOICE FUNCTIONS ==========
+        function initializeInvoice() {
+            const today = formatDate(getAbuDhabiTime());
+            document.getElementById('invoice-date').value = today;
+            addInvoiceItem();
+        }
+
+        function addInvoiceItem() {
+            const container = document.getElementById('invoice-items-container');
+            const itemId = APP_STATE.currentInvoiceItems.length;
+            
+            const itemHtml = `
+                <div class="form-group" style="border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; margin-bottom: 15px;" id="invoice-item-${itemId}">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px;">
+                        <input type="text" placeholder="Description" id="inv-desc-${itemId}" class="invoice-item-desc">
+                        <input type="number" placeholder="Qty" id="inv-qty-${itemId}" class="invoice-item-qty" value="1" min="1">
+                        <input type="number" placeholder="Rate" id="inv-rate-${itemId}" class="invoice-item-rate" value="0" min="0">
+                    </div>
+                    <button class="btn btn-danger" style="margin-top: 10px;" onclick="removeInvoiceItem(${itemId})">Remove Item</button>
+                </div>
+            `;
+            
+            container.insertAdjacentHTML('beforeend', itemHtml);
+            APP_STATE.currentInvoiceItems.push({ id: itemId });
+        }
+
+        function removeInvoiceItem(itemId) {
+            document.getElementById(`invoice-item-${itemId}`).remove();
+            APP_STATE.currentInvoiceItems = APP_STATE.currentInvoiceItems.filter(item => item.id !== itemId);
+        }
+
+        function calculateInvoiceTotal() {
+            let subtotal = 0;
+            
+            APP_STATE.currentInvoiceItems.forEach(item => {
+                const qty = parseFloat(document.getElementById(`inv-qty-${item.id}`)?.value) || 0;
+                const rate = parseFloat(document.getElementById(`inv-rate-${item.id}`)?.value) || 0;
+                subtotal += qty * rate;
+            });
+            
+            return subtotal;
+        }
+
+        function generateInvoicePreview() {
+            const number = document.getElementById('invoice-number').value;
+            const date = document.getElementById('invoice-date').value;
+            const clientName = document.getElementById('invoice-client-name').value;
+            const clientAddress = document.getElementById('invoice-client-address').value;
+            const notes = document.getElementById('invoice-notes').value;
+            
+            let itemsHtml = '';
+            let subtotal = 0;
+            
+            APP_STATE.currentInvoiceItems.forEach(item => {
+                const desc = document.getElementById(`inv-desc-${item.id}`)?.value || '';
+                const qty = parseFloat(document.getElementById(`inv-qty-${item.id}`)?.value) || 0;
+                const rate = parseFloat(document.getElementById(`inv-rate-${item.id}`)?.value) || 0;
+                const amount = qty * rate;
+                subtotal += amount;
+                
+                if (desc) {
+                    itemsHtml += `
+                        <tr>
+                            <td>${desc}</td>
+                            <td>${qty}</td>
+                            <td>$${rate.toFixed(2)}</td>
+                            <td>$${amount.toFixed(2)}</td>
+                        </tr>
+                    `;
+                }
+            });
+            
+            const preview = `
+                <div class="invoice-preview">
+                    <div class="invoice-header">
+                        <h2>INVOICE</h2>
+                        <p><strong>Basel Omar</strong></p>
+                        <p>QS Consultant & Civil Engineer</p>
+                        <p>basel.omar.qs@gmail.com | +971 54 547 2423</p>
+                        <p>baselomar.site</p>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+                        <div>
+                            <h3>Bill To:</h3>
+                            <p><strong>${clientName || 'Client Name'}</strong></p>
+                            <p>${clientAddress || 'Client Address'}</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <p><strong>Invoice #:</strong> ${number}</p>
+                            <p><strong>Date:</strong> ${date}</p>
+                        </div>
+                    </div>
+                    
+                    <table class="invoice-table">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${itemsHtml}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" style="text-align: right;"><strong>TOTAL:</strong></td>
+                                <td><strong>$${subtotal.toFixed(2)}</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    
+                    ${notes ? `<div style="margin-top: 30px;"><strong>Notes:</strong><p>${notes}</p></div>` : ''}
+                    
+                    <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid var(--border-color); text-align: center;">
+                        <p>Thank you for your business!</p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('invoice-preview-container').innerHTML = preview;
+        }
+
+        function saveInvoiceDraft() {
+            const invoice = {
+                number: document.getElementById('invoice-number').value,
+                date: document.getElementById('invoice-date').value,
+                clientName: document.getElementById('invoice-client-name').value,
+                clientAddress: document.getElementById('invoice-client-address').value,
+                notes: document.getElementById('invoice-notes').value,
+                items: APP_STATE.currentInvoiceItems.map(item => ({
+                    description: document.getElementById(`inv-desc-${item.id}`)?.value,
+                    quantity: document.getElementById(`inv-qty-${item.id}`)?.value,
+                    rate: document.getElementById(`inv-rate-${item.id}`)?.value
+                })),
+                timestamp: getAbuDhabiTime()
+            };
+            
+            APP_STATE.invoices.push(invoice);
+            saveState();
+            alert('Invoice draft saved!');
+        }
+
+        function downloadInvoicePDF() {
+            generateInvoicePreview();
+            
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Header
+            doc.setFillColor(0, 51, 102);
+            doc.rect(0, 0, 210, 40, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(24);
+            doc.text('INVOICE', 105, 20, { align: 'center' });
+            doc.setFontSize(10);
+            doc.text('Basel Omar - QS Consultant & Civil Engineer', 105, 28, { align: 'center' });
+            doc.text('basel.omar.qs@gmail.com | +971 54 547 2423', 105, 34, { align: 'center' });
+            
+            // Reset color for body
+            doc.setTextColor(0, 0, 0);
+            
+            // Invoice details
+            const number = document.getElementById('invoice-number').value;
+            const date = document.getElementById('invoice-date').value;
+            const clientName = document.getElementById('invoice-client-name').value;
+            
+            doc.setFontSize(12);
+            doc.text(`Invoice #: ${number}`, 150, 50);
+            doc.text(`Date: ${date}`, 150, 56);
+            doc.text(`Bill To: ${clientName}`, 20, 50);
+            
+            // Items table
+            let yPos = 70;
+            doc.setFontSize(10);
+            doc.text('Description', 20, yPos);
+            doc.text('Qty', 120, yPos);
+            doc.text('Rate', 145, yPos);
+            doc.text('Amount', 175, yPos);
+            
+            yPos += 5;
+            doc.line(20, yPos, 190, yPos);
+            yPos += 7;
+            
+            let total = 0;
+            APP_STATE.currentInvoiceItems.forEach(item => {
+                const desc = document.getElementById(`inv-desc-${item.id}`)?.value || '';
+                const qty = parseFloat(document.getElementById(`inv-qty-${item.id}`)?.value) || 0;
+                const rate = parseFloat(document.getElementById(`inv-rate-${item.id}`)?.value) || 0;
+                const amount = qty * rate;
+                total += amount;
+                
+                if (desc) {
+                    doc.text(desc, 20, yPos);
+                    doc.text(qty.toString(), 120, yPos);
+                    doc.text(`$${rate.toFixed(2)}`, 145, yPos);
+                    doc.text(`$${amount.toFixed(2)}`, 175, yPos);
+                    yPos += 7;
+                }
+            });
+            
+            yPos += 5;
+            doc.line(20, yPos, 190, yPos);
+            yPos += 7;
+            doc.setFontSize(12);
+            doc.text('TOTAL:', 145, yPos);
+            doc.text(`$${total.toFixed(2)}`, 175, yPos);
+            
+            doc.save(`Invoice_${number}.pdf`);
+        }
+
+        // ========== QUOTATION FUNCTIONS ==========
+        function initializeQuotation() {
+            const today = formatDate(getAbuDhabiTime());
+            document.getElementById('quote-date').value = today;
+            addQuoteItem();
+        }
+
+        function addQuoteItem() {
+            const container = document.getElementById('quote-items-container');
+            const itemId = APP_STATE.currentQuoteItems.length;
+            
+            const itemHtml = `
+                <div class="form-group" style="border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; margin-bottom: 15px;" id="quote-item-${itemId}">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px;">
+                        <input type="text" placeholder="Service Description" id="quote-desc-${itemId}" class="quote-item-desc">
+                        <input type="number" placeholder="Qty" id="quote-qty-${itemId}" class="quote-item-qty" value="1" min="1">
+                        <input type="number" placeholder="Rate" id="quote-rate-${itemId}" class="quote-item-rate" value="0" min="0">
+                    </div>
+                    <button class="btn btn-danger" style="margin-top: 10px;" onclick="removeQuoteItem(${itemId})">Remove Item</button>
+                </div>
+            `;
+            
+            container.insertAdjacentHTML('beforeend', itemHtml);
+            APP_STATE.currentQuoteItems.push({ id: itemId });
+        }
+
+        function removeQuoteItem(itemId) {
+            document.getElementById(`quote-item-${itemId}`).remove();
+            APP_STATE.currentQuoteItems = APP_STATE.currentQuoteItems.filter(item => item.id !== itemId);
+        }
+
+        function generateQuotePreview() {
+            const number = document.getElementById('quote-number').value;
+            const date = document.getElementById('quote-date').value;
+            const validity = document.getElementById('quote-validity').value;
+            const clientName = document.getElementById('quote-client-name').value;
+            const projectName = document.getElementById('quote-project-name').value;
+            const terms = document.getElementById('quote-terms').value;
+            
+            let itemsHtml = '';
+            let subtotal = 0;
+            
+            APP_STATE.currentQuoteItems.forEach(item => {
+                const desc = document.getElementById(`quote-desc-${item.id}`)?.value || '';
+                const qty = parseFloat(document.getElementById(`quote-qty-${item.id}`)?.value) || 0;
+                const rate = parseFloat(document.getElementById(`quote-rate-${item.id}`)?.value) || 0;
+                const amount = qty * rate;
+                subtotal += amount;
+                
+                if (desc) {
+                    itemsHtml += `
+                        <tr>
+                            <td>${desc}</td>
+                            <td>${qty}</td>
+                            <td>$${rate.toFixed(2)}</td>
+                            <td>$${amount.toFixed(2)}</td>
+                        </tr>
+                    `;
+                }
+            });
+            
+            const preview = `
+                <div class="invoice-preview">
+                    <div class="invoice-header">
+                        <h2>QUOTATION</h2>
+                        <p><strong>Basel Omar</strong></p>
+                        <p>QS Consultant & Civil Engineer</p>
+                        <p>basel.omar.qs@gmail.com | +971 54 547 2423</p>
+                        <p>baselomar.site</p>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+                        <div>
+                            <h3>To:</h3>
+                            <p><strong>${clientName || 'Client Name'}</strong></p>
+                            <p><strong>Project:</strong> ${projectName || 'Project Name'}</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <p><strong>Quotation #:</strong> ${number}</p>
+                            <p><strong>Date:</strong> ${date}</p>
+                            <p><strong>Valid for:</strong> ${validity} days</p>
+                        </div>
+                    </div>
+                    
+                    <table class="invoice-table">
+                        <thead>
+                            <tr>
+                                <th>Service Description</th>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${itemsHtml}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" style="text-align: right;"><strong>GRAND TOTAL:</strong></td>
+                                <td><strong>$${subtotal.toFixed(2)}</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    
+                    <div style="margin-top: 30px;">
+                        <h3>Terms & Conditions:</h3>
+                        <p style="white-space: pre-line;">${terms}</p>
+                    </div>
+                    
+                    <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid var(--border-color); text-align: center;">
+                        <p>Thank you for considering our services!</p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('quote-preview-container').innerHTML = preview;
+        }
+
+        function saveQuoteDraft() {
+            const quotation = {
+                number: document.getElementById('quote-number').value,
+                date: document.getElementById('quote-date').value,
+                validity: document.getElementById('quote-validity').value,
+                clientName: document.getElementById('quote-client-name').value,
+                projectName: document.getElementById('quote-project-name').value,
+                terms: document.getElementById('quote-terms').value,
+                items: APP_STATE.currentQuoteItems.map(item => ({
+                    description: document.getElementById(`quote-desc-${item.id}`)?.value,
+                    quantity: document.getElementById(`quote-qty-${item.id}`)?.value,
+                    rate: document.getElementById(`quote-rate-${item.id}`)?.value
+                })),
+                timestamp: getAbuDhabiTime()
+            };
+            
+            APP_STATE.quotations.push(quotation);
+            saveState();
+            alert('Quotation draft saved!');
+        }
+
+        function downloadQuotePDF() {
+            generateQuotePreview();
+            
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Header
+            doc.setFillColor(0, 51, 102);
+            doc.rect(0, 0, 210, 40, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(24);
+            doc.text('QUOTATION', 105, 20, { align: 'center' });
+            doc.setFontSize(10);
+            doc.text('Basel Omar - QS Consultant & Civil Engineer', 105, 28, { align: 'center' });
+            doc.text('basel.omar.qs@gmail.com | +971 54 547 2423', 105, 34, { align: 'center' });
+            
+            doc.setTextColor(0, 0, 0);
+            
+            const number = document.getElementById('quote-number').value;
+            const date = document.getElementById('quote-date').value;
+            const clientName = document.getElementById('quote-client-name').value;
+            const projectName = document.getElementById('quote-project-name').value;
+            
+            doc.setFontSize(12);
+            doc.text(`Quotation #: ${number}`, 150, 50);
+            doc.text(`Date: ${date}`, 150, 56);
+            doc.text(`To: ${clientName}`, 20, 50);
+            doc.text(`Project: ${projectName}`, 20, 56);
+            
+            let yPos = 70;
+            doc.setFontSize(10);
+            doc.text('Description', 20, yPos);
+            doc.text('Qty', 120, yPos);
+            doc.text('Rate', 145, yPos);
+            doc.text('Amount', 175, yPos);
+            
+            yPos += 5;
+            doc.line(20, yPos, 190, yPos);
+            yPos += 7;
+            
+            let total = 0;
+            APP_STATE.currentQuoteItems.forEach(item => {
+                const desc = document.getElementById(`quote-desc-${item.id}`)?.value || '';
+                const qty = parseFloat(document.getElementById(`quote-qty-${item.id}`)?.value) || 0;
+                const rate = parseFloat(document.getElementById(`quote-rate-${item.id}`)?.value) || 0;
+                const amount = qty * rate;
+                total += amount;
+                
+                if (desc && yPos < 250) {
+                    doc.text(desc.substring(0, 50), 20, yPos);
+                    doc.text(qty.toString(), 120, yPos);
+                    doc.text(`$${rate.toFixed(2)}`, 145, yPos);
+                    doc.text(`$${amount.toFixed(2)}`, 175, yPos);
+                    yPos += 7;
+                }
+            });
+            
+            yPos += 5;
+            doc.line(20, yPos, 190, yPos);
+            yPos += 7;
+            doc.setFontSize(12);
+            doc.text('GRAND TOTAL:', 145, yPos);
+            doc.text(`$${total.toFixed(2)}`, 175, yPos);
+            
+            doc.save(`Quotation_${number}.pdf`);
+        }
+
+        // ========== DASHBOARD FUNCTIONS ==========
+        function updateDashboard() {
+            // Update current date
+            const dateElement = document.getElementById('current-date');
+            if (dateElement) {
+                dateElement.textContent = formatDateTime(getAbuDhabiTime());
+            }
+            
+            // Update stats
+            const totalQuestions = APP_STATE.memoryTest.answers.length;
+            const correctAnswers = APP_STATE.memoryTest.answers.filter(a => a.correct).length;
+            const accuracy = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+            
+            document.getElementById('stat-questions').textContent = totalQuestions;
+            document.getElementById('stat-accuracy').textContent = accuracy + '%';
+            document.getElementById('stat-jobs').textContent = APP_STATE.jobs.viewedToday;
+            document.getElementById('stat-documents').textContent = 
+                APP_STATE.invoices.length + APP_STATE.quotations.length;
+            
+            // Update memory test status
+            const memoryStatus = document.getElementById('dashboard-memory-status');
+            if (memoryStatus) {
+                memoryStatus.innerHTML = `
+                    <p><strong>Questions Answered:</strong> ${totalQuestions}/20</p>
+                    <p><strong>Accuracy:</strong> ${accuracy}%</p>
+                    <p><strong>Mistakes:</strong> ${APP_STATE.memoryTest.mistakes.length}</p>
+                `;
+            }
+            
+            // Update recent activity
+            const activityElement = document.getElementById('dashboard-recent-activity');
+            if (activityElement) {
+                const recentActivities = [];
+                
+                if (APP_STATE.memoryTest.answers.length > 0) {
+                    const lastAnswer = APP_STATE.memoryTest.answers[APP_STATE.memoryTest.answers.length - 1];
+                    recentActivities.push(`✓ Answered question (${lastAnswer.correct ? 'Correct' : 'Incorrect'})`);
+                }
+                
+                if (APP_STATE.jobs.savedJobs.length > 0) {
+                    recentActivities.push(`💼 Saved ${APP_STATE.jobs.savedJobs.length} jobs`);
+                }
+                
+                if (APP_STATE.invoices.length > 0) {
+                    recentActivities.push(`📄 Created ${APP_STATE.invoices.length} invoices`);
+                }
+                
+                if (APP_STATE.quotations.length > 0) {
+                    recentActivities.push(`📋 Created ${APP_STATE.quotations.length} quotations`);
+                }
+                
+                if (recentActivities.length === 0) {
+                    activityElement.innerHTML = '<p>No recent activity</p>';
+                } else {
+                    activityElement.innerHTML = recentActivities.map(a => `<p>${a}</p>`).join('');
+                }
+            }
+        }
+
+        // ========== INITIALIZATION ==========
+        function initializeApp() {
+            loadState();
+            loadJobs();
+            initializeInvoice();
+            initializeQuotation();
+            updateDashboard();
+            
+            // Set up periodic dashboard updates
+            setInterval(updateDashboard, 30000); // Update every 30 seconds
+            
+            // Request notification permission
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+        }
+
+        // Run initialization when page loads
+        window.addEventListener('load', initializeApp);
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>
