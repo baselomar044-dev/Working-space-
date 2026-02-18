@@ -945,7 +945,6 @@ Delivery: Within agreed timeline</textarea>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         // ========== GLOBAL STATE ==========
         const APP_STATE = {
@@ -1758,69 +1757,37 @@ Delivery: Within agreed timeline</textarea>
         function downloadInvoicePDF() {
             generateInvoicePreview();
             
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+            // Since external libraries are blocked, use browser print functionality
+            // This will allow users to save as PDF through their browser
+            alert('Click OK to open print dialog. You can save as PDF from the print dialog.');
             
-            // Header
-            doc.setFillColor(0, 51, 102);
-            doc.rect(0, 0, 210, 40, 'F');
-            doc.setTextColor(255, 255, 255);
-            doc.setFontSize(24);
-            doc.text('INVOICE', 105, 20, { align: 'center' });
-            doc.setFontSize(10);
-            doc.text('Basel Omar - QS Consultant & Civil Engineer', 105, 28, { align: 'center' });
-            doc.text('basel.omar.qs@gmail.com | +971 54 547 2423', 105, 34, { align: 'center' });
+            // Hide everything except the invoice preview
+            const sections = document.querySelectorAll('.section');
+            const header = document.querySelector('header');
+            const footer = document.querySelector('footer');
+            const invoiceForm = document.querySelector('#invoice .grid > div:first-child');
             
-            // Reset color for body
-            doc.setTextColor(0, 0, 0);
+            // Store original display values
+            const originalDisplay = {
+                header: header.style.display,
+                footer: footer.style.display,
+                form: invoiceForm.style.display
+            };
             
-            // Invoice details
-            const number = document.getElementById('invoice-number').value;
-            const date = document.getElementById('invoice-date').value;
-            const clientName = document.getElementById('invoice-client-name').value;
+            // Hide everything except preview
+            header.style.display = 'none';
+            footer.style.display = 'none';
+            invoiceForm.style.display = 'none';
             
-            doc.setFontSize(12);
-            doc.text(`Invoice #: ${number}`, 150, 50);
-            doc.text(`Date: ${date}`, 150, 56);
-            doc.text(`Bill To: ${clientName}`, 20, 50);
+            // Print
+            window.print();
             
-            // Items table
-            let yPos = 70;
-            doc.setFontSize(10);
-            doc.text('Description', 20, yPos);
-            doc.text('Qty', 120, yPos);
-            doc.text('Rate', 145, yPos);
-            doc.text('Amount', 175, yPos);
-            
-            yPos += 5;
-            doc.line(20, yPos, 190, yPos);
-            yPos += 7;
-            
-            let total = 0;
-            APP_STATE.currentInvoiceItems.forEach(item => {
-                const desc = document.getElementById(`inv-desc-${item.id}`)?.value || '';
-                const qty = parseFloat(document.getElementById(`inv-qty-${item.id}`)?.value) || 0;
-                const rate = parseFloat(document.getElementById(`inv-rate-${item.id}`)?.value) || 0;
-                const amount = qty * rate;
-                total += amount;
-                
-                if (desc) {
-                    doc.text(desc, 20, yPos);
-                    doc.text(qty.toString(), 120, yPos);
-                    doc.text(`$${rate.toFixed(2)}`, 145, yPos);
-                    doc.text(`$${amount.toFixed(2)}`, 175, yPos);
-                    yPos += 7;
-                }
-            });
-            
-            yPos += 5;
-            doc.line(20, yPos, 190, yPos);
-            yPos += 7;
-            doc.setFontSize(12);
-            doc.text('TOTAL:', 145, yPos);
-            doc.text(`$${total.toFixed(2)}`, 175, yPos);
-            
-            doc.save(`Invoice_${number}.pdf`);
+            // Restore original display
+            setTimeout(() => {
+                header.style.display = originalDisplay.header;
+                footer.style.display = originalDisplay.footer;
+                invoiceForm.style.display = originalDisplay.form;
+            }, 100);
         }
 
         // ========== QUOTATION FUNCTIONS ==========
@@ -1965,68 +1932,35 @@ Delivery: Within agreed timeline</textarea>
         function downloadQuotePDF() {
             generateQuotePreview();
             
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+            // Since external libraries are blocked, use browser print functionality
+            alert('Click OK to open print dialog. You can save as PDF from the print dialog.');
             
-            // Header
-            doc.setFillColor(0, 51, 102);
-            doc.rect(0, 0, 210, 40, 'F');
-            doc.setTextColor(255, 255, 255);
-            doc.setFontSize(24);
-            doc.text('QUOTATION', 105, 20, { align: 'center' });
-            doc.setFontSize(10);
-            doc.text('Basel Omar - QS Consultant & Civil Engineer', 105, 28, { align: 'center' });
-            doc.text('basel.omar.qs@gmail.com | +971 54 547 2423', 105, 34, { align: 'center' });
+            // Hide everything except the quotation preview
+            const header = document.querySelector('header');
+            const footer = document.querySelector('footer');
+            const quoteForm = document.querySelector('#quotation .grid > div:first-child');
             
-            doc.setTextColor(0, 0, 0);
+            // Store original display values
+            const originalDisplay = {
+                header: header.style.display,
+                footer: footer.style.display,
+                form: quoteForm.style.display
+            };
             
-            const number = document.getElementById('quote-number').value;
-            const date = document.getElementById('quote-date').value;
-            const clientName = document.getElementById('quote-client-name').value;
-            const projectName = document.getElementById('quote-project-name').value;
+            // Hide everything except preview
+            header.style.display = 'none';
+            footer.style.display = 'none';
+            quoteForm.style.display = 'none';
             
-            doc.setFontSize(12);
-            doc.text(`Quotation #: ${number}`, 150, 50);
-            doc.text(`Date: ${date}`, 150, 56);
-            doc.text(`To: ${clientName}`, 20, 50);
-            doc.text(`Project: ${projectName}`, 20, 56);
+            // Print
+            window.print();
             
-            let yPos = 70;
-            doc.setFontSize(10);
-            doc.text('Description', 20, yPos);
-            doc.text('Qty', 120, yPos);
-            doc.text('Rate', 145, yPos);
-            doc.text('Amount', 175, yPos);
-            
-            yPos += 5;
-            doc.line(20, yPos, 190, yPos);
-            yPos += 7;
-            
-            let total = 0;
-            APP_STATE.currentQuoteItems.forEach(item => {
-                const desc = document.getElementById(`quote-desc-${item.id}`)?.value || '';
-                const qty = parseFloat(document.getElementById(`quote-qty-${item.id}`)?.value) || 0;
-                const rate = parseFloat(document.getElementById(`quote-rate-${item.id}`)?.value) || 0;
-                const amount = qty * rate;
-                total += amount;
-                
-                if (desc && yPos < 250) {
-                    doc.text(desc.substring(0, 50), 20, yPos);
-                    doc.text(qty.toString(), 120, yPos);
-                    doc.text(`$${rate.toFixed(2)}`, 145, yPos);
-                    doc.text(`$${amount.toFixed(2)}`, 175, yPos);
-                    yPos += 7;
-                }
-            });
-            
-            yPos += 5;
-            doc.line(20, yPos, 190, yPos);
-            yPos += 7;
-            doc.setFontSize(12);
-            doc.text('GRAND TOTAL:', 145, yPos);
-            doc.text(`$${total.toFixed(2)}`, 175, yPos);
-            
-            doc.save(`Quotation_${number}.pdf`);
+            // Restore original display
+            setTimeout(() => {
+                header.style.display = originalDisplay.header;
+                footer.style.display = originalDisplay.footer;
+                quoteForm.style.display = originalDisplay.form;
+            }, 100);
         }
 
         // ========== DASHBOARD FUNCTIONS ==========
