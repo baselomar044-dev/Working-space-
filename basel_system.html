@@ -683,7 +683,7 @@
             <nav>
                 <div class="nav-buttons">
                     <button class="nav-btn active" onclick="showSection('dashboard')">Dashboard</button>
-                    <button class="nav-btn" onclick="showSection('memory-test')">Memory Test</button>
+                    <button class="nav-btn" onclick="showSection('memory-test')">G+12 Exam Tutor</button>
                     <button class="nav-btn" onclick="showSection('jobs')">Jobs Finder</button>
                     <button class="nav-btn" onclick="showSection('invoice')">Invoice</button>
                     <button class="nav-btn" onclick="showSection('quotation')">Quotation</button>
@@ -738,11 +738,35 @@
             <section id="memory-test" class="section">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Memory Test System</h2>
-                        <p>Hourly structural engineering questions - Abu Dhabi Time (UTC+4)</p>
+                        <h2>G+12 Exam Tutor</h2>
+                        <p>Dubai Building Code (DBC) questions for G+12 structural engineering exam – Abu Dhabi Time (UTC+4)</p>
                     </div>
 
-                    <div class="progress-bar">
+                    <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                        <label style="font-weight:bold;">Filter by Topic:</label>
+                        <select id="topic-filter" onchange="filterByTopic()" style="padding:8px 14px; border-radius:6px; border:1px solid var(--border-color); font-size:14px;">
+                            <option value="">All Topics</option>
+                            <option value="Concrete Design">Concrete Design</option>
+                            <option value="Steel Design">Steel Design</option>
+                            <option value="Foundation">Foundation</option>
+                            <option value="Structural Analysis">Structural Analysis</option>
+                            <option value="Fire &amp; Safety">Fire &amp; Safety</option>
+                            <option value="Loads &amp; Forces">Loads &amp; Forces</option>
+                            <option value="Masonry">Masonry</option>
+                            <option value="Prestressed Concrete">Prestressed Concrete</option>
+                            <option value="Construction Methods">Construction Methods</option>
+                            <option value="Materials">Materials</option>
+                        </select>
+                        <select id="difficulty-filter" onchange="filterByTopic()" style="padding:8px 14px; border-radius:6px; border:1px solid var(--border-color); font-size:14px;">
+                            <option value="">All Levels</option>
+                            <option value="Easy">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hard">Hard</option>
+                        </select>
+                        <span id="question-count-badge" style="background:var(--primary-color);color:#fff;padding:4px 12px;border-radius:20px;font-size:13px;"></span>
+                    </div>
+
+
                         <div class="progress-fill" id="test-progress" style="width: 0%">0/20</div>
                     </div>
 
@@ -751,7 +775,7 @@
                     <div id="question-display"></div>
 
                     <div class="text-center mt-20">
-                        <button class="btn btn-primary" id="start-memory-test" onclick="startMemoryTest()">Start Memory Test</button>
+                        <button class="btn btn-primary" id="start-memory-test" onclick="startMemoryTest()">Start G+12 Exam</button>
                     </div>
 
                     <div id="daily-report" class="mt-20"></div>
@@ -809,6 +833,16 @@
                             <h3 style="color: var(--primary-color); margin-bottom: 20px;">Invoice Details</h3>
                             
                             <div class="form-group">
+                                <label>Invoice Type:</label>
+                                <select id="invoice-type" style="width:100%;padding:10px;border:1px solid var(--border-color);border-radius:6px;font-size:14px;">
+                                    <option value="PAYMENT INVOICE">PAYMENT INVOICE</option>
+                                    <option value="INVOICE">INVOICE</option>
+                                    <option value="TAX INVOICE">TAX INVOICE</option>
+                                    <option value="PROFORMA INVOICE">PROFORMA INVOICE</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
                                 <label>Invoice Number:</label>
                                 <input type="text" id="invoice-number" value="INV-001">
                             </div>
@@ -816,6 +850,19 @@
                             <div class="form-group">
                                 <label>Invoice Date:</label>
                                 <input type="date" id="invoice-date">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Invoice Copy:</label>
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                                    <input type="number" id="invoice-copy-num" value="1" min="1" placeholder="Copy No.">
+                                    <input type="number" id="invoice-copy-total" value="2" min="1" placeholder="Total Copies">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Project / Service Description:</label>
+                                <textarea id="invoice-project" rows="2" placeholder="e.g. Quantity Take-off + B.O.Q Preparation, G+4+Roof Building"></textarea>
                             </div>
 
                             <div class="form-group">
@@ -828,13 +875,31 @@
                                 <textarea id="invoice-client-address" rows="3" placeholder="Client Address"></textarea>
                             </div>
 
-                            <h4 style="color: var(--primary-color); margin: 20px 0;">Invoice Items</h4>
+                            <h4 style="color: var(--primary-color); margin: 20px 0;">Invoice Items <small style="font-size:12px; color:#666;">(Description / Rate / Percentage / Total)</small></h4>
                             <div id="invoice-items-container"></div>
                             <button class="btn btn-secondary" onclick="addInvoiceItem()">+ Add Item</button>
 
+                            <h4 style="color: var(--primary-color); margin: 20px 0 10px;">Bank Details</h4>
+                            <div class="form-group">
+                                <label>Bank Name:</label>
+                                <input type="text" id="invoice-bank-name" value="Emirates Islamic Bank" placeholder="Bank Name">
+                            </div>
+                            <div class="form-group">
+                                <label>Account Name:</label>
+                                <input type="text" id="invoice-account-name" value="Basel Adel El Sayed Abdelmagid Omar" placeholder="Account Name">
+                            </div>
+                            <div class="form-group">
+                                <label>Account Number:</label>
+                                <input type="text" id="invoice-account-number" value="3708177373201" placeholder="Account Number">
+                            </div>
+                            <div class="form-group">
+                                <label>IBAN:</label>
+                                <input type="text" id="invoice-iban" value="AE730340003708177373201" placeholder="IBAN">
+                            </div>
+
                             <div class="form-group mt-20">
-                                <label>Notes / Payment Terms:</label>
-                                <textarea id="invoice-notes" rows="3" placeholder="Payment terms and notes..."></textarea>
+                                <label>Notes:</label>
+                                <textarea id="invoice-notes" rows="3" placeholder="e.g. This is a Freelance service – Non VAT registered.">This is a Freelance service – Non VAT registered. This invoice is valid for internal accounting only.</textarea>
                             </div>
 
                             <div class="flex gap-10 mt-20 flex-wrap">
@@ -884,19 +949,20 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Project Name:</label>
-                                <input type="text" id="quote-project-name" placeholder="Project Name">
+                                <label>Project Name / Scope:</label>
+                                <textarea id="quote-project-name" rows="2" placeholder="e.g. Structural Design Consultancy for G+12 Building"></textarea>
                             </div>
 
-                            <h4 style="color: var(--primary-color); margin: 20px 0;">Quotation Items</h4>
+                            <h4 style="color: var(--primary-color); margin: 20px 0;">Quotation Items <small style="font-size:12px; color:#666;">(Service / Unit Price / Unit / Total)</small></h4>
                             <div id="quote-items-container"></div>
                             <button class="btn btn-secondary" onclick="addQuoteItem()">+ Add Item</button>
 
                             <div class="form-group mt-20">
                                 <label>Terms & Conditions:</label>
-                                <textarea id="quote-terms" rows="4">Payment: 50% advance, 50% upon delivery
+                                <textarea id="quote-terms" rows="5">Payment: 50% advance, 50% upon delivery
 Validity: 30 days from quotation date
-Delivery: Within agreed timeline</textarea>
+Delivery: Within agreed timeline
+This is a Freelance service – Non VAT registered.</textarea>
                             </div>
 
                             <div class="flex gap-10 mt-20 flex-wrap">
@@ -1210,16 +1276,109 @@ Delivery: Within agreed timeline</textarea>
             }
         ];
 
-        // Add more questions (continuing to reach 150)
-        for (let i = 21; i <= 150; i++) {
-            QUESTIONS_DB.push({
-                id: i,
-                question: `Structural Engineering Question ${i}: What is the design consideration for element ${i}?`,
-                options: [`Option A for Q${i}`, `Option B for Q${i}`, `Option C for Q${i}`, `Option D for Q${i}`],
-                correct: Math.floor(Math.random() * 4),
-                explanation: `Explanation for question ${i}: This addresses key structural principles and code requirements.`,
-                difficulty: ["Easy", "Medium", "Hard"][Math.floor(Math.random() * 3)],
-                topic: ["Concrete Design", "Steel Design", "Foundation", "Structural Analysis"][Math.floor(Math.random() * 4)]
+        // ========== G+12 DUBAI BUILDING CODE QUESTIONS ==========
+        QUESTIONS_DB.push(
+            // --- From G+12 Study Guide PDF (DBC Recalled Questions) ---
+            {id:21,question:"The purpose of concrete curing is:",options:["Keep the surface wet during concrete hardening","Increase strength of concrete","Increase workability of concrete","Reduce shrinkage cracks only"],correct:0,explanation:"Curing maintains moisture and temperature to allow proper hydration, keeping the surface wet so concrete hardens correctly.",difficulty:"Easy",topic:"Concrete Design"},
+            {id:22,question:"Workability of concrete means:",options:["Easing of concrete placing, mixing and compacting without segregation","Working stress of concrete","Working strain of concrete","Compressive strength of concrete"],correct:0,explanation:"Workability is the ease with which concrete can be placed, mixed, and compacted without segregation or bleeding.",difficulty:"Easy",topic:"Concrete Design"},
+            {id:23,question:"The core test for concrete if required is to be done after ____ days from concrete casting:",options:["7 days","14 days","28 days","21 days"],correct:2,explanation:"Core tests are typically conducted after 28 days to assess the in-situ compressive strength of hardened concrete.",difficulty:"Medium",topic:"Concrete Design"},
+            {id:24,question:"Density of water is:",options:["900 Kg/m³","1000 Kg/m³","1100 Kg/m³","800 Kg/m³"],correct:1,explanation:"The standard density of water is 1000 kg/m³ at 4°C, used in all structural and hydraulic calculations.",difficulty:"Easy",topic:"Materials"},
+            {id:25,question:"The minimum cement content for concrete mix used in foundation is:",options:["300 Kg/m³","380 Kg/m³","250 Kg/m³","350 Kg/m³"],correct:1,explanation:"Minimum cement content for foundation concrete is 380 kg/m³ to ensure durability and strength in aggressive ground conditions.",difficulty:"Medium",topic:"Foundation"},
+            {id:26,question:"Density of steel is:",options:["6500 Kg/m³","7850 Kg/m³","8000 Kg/m³","7200 Kg/m³"],correct:1,explanation:"The standard density of steel is 7850 kg/m³, used in calculating self-weight of structural steel members.",difficulty:"Easy",topic:"Materials"},
+            {id:27,question:"Admixtures are added to concrete mix in order to:",options:["Increase strength","Increase workability","Decrease setting time","All of the above"],correct:3,explanation:"Admixtures can increase strength, improve workability, accelerate or retard setting time, and enhance durability depending on the type.",difficulty:"Easy",topic:"Concrete Design"},
+            {id:28,question:"The maximum water cement ratio for foundation concrete is:",options:["0.4","0.5","0.6","0.45"],correct:0,explanation:"Maximum W/C ratio for foundations is 0.4 to ensure durability and minimize permeability in aggressive environments.",difficulty:"Medium",topic:"Foundation"},
+            {id:29,question:"The connection between column and beam in reinforced concrete frames is:",options:["Pin","Fixed","Roller","Hinge"],correct:1,explanation:"Beam-column connections in RC frames are fixed connections, able to transfer both moments and shear forces.",difficulty:"Easy",topic:"Structural Analysis"},
+            {id:30,question:"Minimum thickness of member that can be used with 8mm butt weld:",options:["8 mm","10 mm","6 mm","12 mm"],correct:0,explanation:"For 8mm butt welds, the minimum member thickness is 8mm as per welding standards (BS/ACI).",difficulty:"Medium",topic:"Steel Design"},
+            {id:31,question:"Minimum thickness of member that can be used with 6mm fillet weld:",options:["6 mm","10 mm","8 mm","12 mm"],correct:1,explanation:"For 6mm fillet welds, minimum member thickness is 10mm. Fillet welds require thicker material to avoid burn-through.",difficulty:"Medium",topic:"Steel Design"},
+            {id:32,question:"The shoring system is designed to carry:",options:["Vertical loads only","Horizontal loads only","Vertical and horizontal loads","Dead loads only"],correct:2,explanation:"Shoring systems must be designed for both vertical loads (dead weight of formwork + concrete) and horizontal loads (wind, accidental impact).",difficulty:"Medium",topic:"Construction Methods"},
+            {id:33,question:"The purpose of using steel casing in bored piles is:",options:["To support the surrounding soil from collapse","To increase pile capacity","To reduce pile diameter","To prevent water ingress only"],correct:0,explanation:"Steel casing in bored piles temporarily supports the surrounding soil from collapse during drilling, ensuring pile integrity.",difficulty:"Medium",topic:"Foundation"},
+            {id:34,question:"Why are vibrators not used in pile concrete during casting for compaction?",options:["The concrete is of high slump (self-compacting)","Vibrators are too expensive","Vibration causes pile collapse","Vibrators cannot reach pile depth"],correct:0,explanation:"Pile concrete uses high-slump self-compacting concrete (SCC) that flows under its own weight, so mechanical vibration is not needed.",difficulty:"Hard",topic:"Foundation"},
+            {id:35,question:"As per Dubai Municipality, the most suitable technique for deep compaction in Dubai is:",options:["Vibro compaction","Dynamic compaction","Stone columns","Grouting"],correct:0,explanation:"Vibro compaction (vibroflotation) is most suitable for Dubai's sandy soil conditions as per DM requirements for deep compaction.",difficulty:"Hard",topic:"Foundation"},
+            {id:36,question:"What is the foundation called in which a cantilever beam joins two separate footings?",options:["Strap foundation","Combined foundation","Mat foundation","Raft foundation"],correct:0,explanation:"A strap foundation uses a strap beam (cantilever beam) to connect two individual footings, used when one footing is near a boundary.",difficulty:"Medium",topic:"Foundation"},
+            {id:37,question:"For non-cohesive soil like silty sand, which dewatering technique is most suitable?",options:["Well point system","Deep wells","Sump pumping","Grouting"],correct:0,explanation:"The wellpoint system is most suitable for shallow dewatering in non-cohesive silty sand, drawing water from around the excavation.",difficulty:"Hard",topic:"Foundation"},
+            {id:38,question:"In prestressed concrete beams, when prestress is transferred in pre-tensioned concrete, the member:",options:["Shortens","Elongates","Remains unchanged","Breaks"],correct:0,explanation:"When prestress is transferred in pre-tensioned concrete, the member shortens due to the compressive force induced by the tensioned steel.",difficulty:"Hard",topic:"Prestressed Concrete"},
+            {id:39,question:"As the column height in an RCC building increases, what happens to the reinforcement percentage?",options:["It decreases","It increases","It remains the same","It depends only on load"],correct:2,explanation:"Column reinforcement is governed by axial load and moment demand, not height alone. The percentage remains within code limits (1-4%).",difficulty:"Hard",topic:"Concrete Design"},
+            {id:40,question:"In massive concrete structures like coretwall, how should concrete be placed?",options:["In horizontal layers","In vertical layers","In diagonal layers","Randomly"],correct:0,explanation:"Concrete in massive structures must be placed in horizontal layers to avoid segregation, ensure compaction, and control hydration heat.",difficulty:"Medium",topic:"Concrete Design"},
+            // --- Additional G+12 / Dubai Building Code Questions ---
+            {id:41,question:"Minimum depth of pile head inside the pile cap as per UAE standards:",options:["150 mm","100 mm","200 mm","75 mm"],correct:0,explanation:"Pile head must extend minimum 150mm into the pile cap to ensure proper load transfer and anchorage of pile reinforcement.",difficulty:"Medium",topic:"Foundation"},
+            {id:42,question:"What should the first layer of block masonry in building walls be?",options:["Solid blocks","Hollow blocks","Thermal blocks","Lightweight blocks"],correct:0,explanation:"The first layer (damp proof course level) of block masonry should use solid blocks to resist moisture and provide a solid base.",difficulty:"Easy",topic:"Masonry"},
+            {id:43,question:"What is the minimum fire resistance period required for structural elements in G+12 buildings as per UAE fire code?",options:["60 minutes","90 minutes","120 minutes","180 minutes"],correct:2,explanation:"G+12 buildings (high-rise > 10 floors) require a minimum 120-minute fire resistance for primary structural elements per UAE Fire Code.",difficulty:"Hard",topic:"Fire & Safety"},
+            {id:44,question:"The characteristic compressive strength of C30 concrete (fck) is:",options:["25 N/mm²","30 N/mm²","35 N/mm²","40 N/mm²"],correct:1,explanation:"For C30 grade concrete, fck = 30 N/mm² (cylinder strength). This is commonly specified for structural elements in Dubai buildings.",difficulty:"Easy",topic:"Concrete Design"},
+            {id:45,question:"As per Dubai Municipality G+12 requirements, the minimum concrete grade for structural members is:",options:["C20","C25","C30","C40"],correct:3,explanation:"Dubai Municipality requires a minimum C40 concrete grade for G+12 structural members due to aggressive environmental exposure.",difficulty:"Medium",topic:"Concrete Design"},
+            {id:46,question:"The minimum cover to reinforcement for columns in moderate exposure conditions is:",options:["20 mm","25 mm","30 mm","40 mm"],correct:2,explanation:"Minimum cover for columns in moderate exposure (XC2) is 30mm as per BS 8110 / Eurocode 2 requirements.",difficulty:"Medium",topic:"Concrete Design"},
+            {id:47,question:"What is the maximum aggregate size permitted in reinforced concrete structural members?",options:["5 mm","10 mm","20 mm","40 mm"],correct:2,explanation:"Maximum aggregate size for RCC structural members is 20mm to ensure proper flow around reinforcement and avoid segregation.",difficulty:"Easy",topic:"Concrete Design"},
+            {id:48,question:"The partial safety factor for dead loads (γDL) in limit state design is:",options:["1.2","1.4","1.6","1.0"],correct:1,explanation:"The partial safety factor for dead loads is 1.4 as per BS 8110 for ultimate limit state design.",difficulty:"Medium",topic:"Structural Analysis"},
+            {id:49,question:"The partial safety factor for imposed (live) loads (γLL) in limit state design is:",options:["1.4","1.5","1.6","2.0"],correct:2,explanation:"The partial safety factor for imposed (live) loads is 1.6 as per BS 8110 for ultimate limit state design.",difficulty:"Medium",topic:"Structural Analysis"},
+            {id:50,question:"Wind load on buildings is classified as:",options:["Dead load","Live load","Environmental load","Accidental load"],correct:2,explanation:"Wind load is classified as an environmental (lateral) load and must be combined with dead and live loads in structural design.",difficulty:"Easy",topic:"Loads & Forces"},
+            {id:51,question:"The minimum reinforcement ratio in RC beams (tension zone) is:",options:["0.13%","0.20%","0.26%","0.50%"],correct:0,explanation:"Minimum steel ratio in RC beams is 0.13% of gross cross-section area (100As/bh ≥ 0.13%) as per BS 8110.",difficulty:"Hard",topic:"Concrete Design"},
+            {id:52,question:"The maximum reinforcement ratio in RC beams is:",options:["2%","3%","4%","6%"],correct:2,explanation:"Maximum steel ratio in RC beams is 4% of gross cross-section area to maintain ductility and allow proper concrete compaction.",difficulty:"Medium",topic:"Concrete Design"},
+            {id:53,question:"What is the standard cube strength test period for concrete?",options:["7 days","14 days","28 days","56 days"],correct:2,explanation:"Standard cube compressive strength tests are conducted at 28 days, by which concrete achieves approximately 99% of its design strength.",difficulty:"Easy",topic:"Concrete Design"},
+            {id:54,question:"The slump test measures:",options:["Compressive strength","Workability/consistency","Water content","Aggregate size"],correct:1,explanation:"The slump test measures the workability (consistency) of fresh concrete to determine its ease of placement and compaction.",difficulty:"Easy",topic:"Concrete Design"},
+            {id:55,question:"For a simply supported beam with UDL, the maximum bending moment occurs at:",options:["Supports","Quarter span","Mid span","Three-quarter span"],correct:2,explanation:"For a simply supported beam with UDL, maximum bending moment = wL²/8, occurring at mid-span.",difficulty:"Easy",topic:"Structural Analysis"},
+            {id:56,question:"For a cantilever beam with UDL, the maximum bending moment occurs at:",options:["Free end","Quarter span","Mid span","Fixed end/support"],correct:3,explanation:"For a cantilever beam with UDL, maximum bending moment = wL²/2, occurring at the fixed support.",difficulty:"Easy",topic:"Structural Analysis"},
+            {id:57,question:"The shear force diagram for a simply supported beam with UDL is:",options:["Parabolic","Triangular shape (linear)","Rectangular","Zero throughout"],correct:1,explanation:"A UDL on a simply supported beam produces a linear (triangular) shear force diagram, zero at midspan and maximum at supports.",difficulty:"Medium",topic:"Structural Analysis"},
+            {id:58,question:"The bending moment diagram for a simply supported beam with UDL is:",options:["Parabolic (sagging)","Triangular","Rectangular","Linear"],correct:0,explanation:"A UDL on a simply supported beam produces a parabolic (sagging) bending moment diagram, with maximum at midspan.",difficulty:"Medium",topic:"Structural Analysis"},
+            {id:59,question:"Effective length of a column fixed at both ends is:",options:["L","0.5L","0.7L","2L"],correct:1,explanation:"Effective length for a column fixed at both ends (fully fixed-fixed) is 0.5L, giving the smallest buckling length.",difficulty:"Medium",topic:"Structural Analysis"},
+            {id:60,question:"Effective length of a column fixed at base and free at top (flagpole) is:",options:["0.5L","L","2L","0.7L"],correct:2,explanation:"Effective length for a cantilever column fixed at base and free at top is 2L, giving the largest buckling length.",difficulty:"Medium",topic:"Structural Analysis"},
+            {id:61,question:"Which type of pile transfers load primarily through friction along its shaft?",options:["End bearing pile","Friction pile","Combination pile","Under-reamed pile"],correct:1,explanation:"A friction pile (floating pile) transfers load to surrounding soil through skin friction along its entire shaft length.",difficulty:"Medium",topic:"Foundation"},
+            {id:62,question:"Which type of pile transfers load primarily to a firm stratum at its tip?",options:["Friction pile","End bearing pile","Bored pile","Driven pile"],correct:1,explanation:"End bearing piles transfer load through the pile tip to a hard rock or firm stratum beneath the pile.",difficulty:"Medium",topic:"Foundation"},
+            {id:63,question:"The design wind speed for Dubai as per local standards is approximately:",options:["30 m/s","38 m/s","45 m/s","50 m/s"],correct:1,explanation:"The basic wind speed for Dubai is approximately 38 m/s (45 mph) as per Dubai Municipality structural design standards.",difficulty:"Hard",topic:"Loads & Forces"},
+            {id:64,question:"What is the minimum lap length for tension reinforcement bars?",options:["25d","30d","40d","50d"],correct:2,explanation:"Minimum lap length for tension bars is 40 times the bar diameter (40d) as per BS 8110 and Dubai Municipality requirements.",difficulty:"Medium",topic:"Concrete Design"},
+            {id:65,question:"Seismic design for buildings in Dubai follows which hazard zone?",options:["Zone 0 (no seismic)","Zone 1 (low seismic)","Zone 2 (moderate)","Zone 4 (high)"],correct:1,explanation:"Dubai is in Zone 1 (low seismic hazard). Buildings must still account for seismic loads, especially for G+12 structures.",difficulty:"Hard",topic:"Loads & Forces"},
+            {id:66,question:"What is the standard imposed (live) load for office floors as per BS 6399?",options:["2.0 kN/m²","2.5 kN/m²","3.0 kN/m²","5.0 kN/m²"],correct:2,explanation:"Standard imposed load for office floors is 3.0 kN/m² (BS 6399). Stairs and corridors are typically 4.0 kN/m².",difficulty:"Medium",topic:"Loads & Forces"},
+            {id:67,question:"What is the standard imposed (live) load for residential floors?",options:["1.5 kN/m²","2.0 kN/m²","3.0 kN/m²","4.0 kN/m²"],correct:1,explanation:"Standard imposed load for residential floors is 2.0 kN/m² as per BS 6399 / UAE loading standards.",difficulty:"Easy",topic:"Loads & Forces"},
+            {id:68,question:"Yield strength of high-yield reinforcement steel (Grade 60/T bars) is:",options:["250 N/mm²","415 N/mm²","460 N/mm²","500 N/mm²"],correct:2,explanation:"High-yield deformed bars (T bars, Grade 460) have characteristic yield strength fy = 460 N/mm² per BS 4449.",difficulty:"Easy",topic:"Materials"},
+            {id:69,question:"Modulus of elasticity of structural steel is:",options:["100 GPa","150 GPa","200 GPa","250 GPa"],correct:2,explanation:"Modulus of elasticity of steel is 200 GPa (200,000 N/mm²), used in all deflection and buckling calculations.",difficulty:"Easy",topic:"Materials"},
+            {id:70,question:"In a two-way slab, if the longer span to shorter span ratio (Ly/Lx) exceeds ____, it's designed as one-way:",options:["1.5","2.0","2.5","3.0"],correct:1,explanation:"When Ly/Lx > 2.0, the slab predominantly spans in one direction and is designed as a one-way slab.",difficulty:"Medium",topic:"Concrete Design"},
+            {id:71,question:"The purpose of providing shear links (stirrups) in beams is:",options:["Resist bending moment","Resist diagonal tension (shear)","Provide compression reinforcement","All of the above"],correct:1,explanation:"Shear links (stirrups) resist diagonal tension forces caused by shear in beams, preventing brittle shear failure.",difficulty:"Easy",topic:"Concrete Design"},
+            {id:72,question:"What is the minimum concrete cover to reinforcement in piles?",options:["40 mm","50 mm","60 mm","75 mm"],correct:3,explanation:"Minimum concrete cover in piles is 75mm due to aggressive ground/groundwater conditions and concrete placement challenges.",difficulty:"Hard",topic:"Foundation"},
+            {id:73,question:"Raft foundation is most suitable when:",options:["Soil bearing capacity is high","Individual footings would cover > 50% of plan area","Building has only 2 floors","Point loads are applied"],correct:1,explanation:"Raft foundations are used when individual footings would cover more than 50% of the plan area, effectively forming a single slab.",difficulty:"Medium",topic:"Foundation"},
+            {id:74,question:"The purpose of a pile cap is to:",options:["Transfer loads from column to piles","Protect pile heads","Resist uplift forces","All of the above"],correct:3,explanation:"A pile cap transfers column/wall loads to the pile group, protects pile heads, and resists differential settlement and uplift.",difficulty:"Medium",topic:"Foundation"},
+            {id:75,question:"What type of test is used to determine in-situ soil bearing capacity?",options:["SPT (Standard Penetration Test)","Slump test","Core test","Rebound hammer test"],correct:0,explanation:"SPT (Standard Penetration Test) is the standard field test for determining in-situ soil properties and bearing capacity.",difficulty:"Easy",topic:"Foundation"},
+            {id:76,question:"The minimum clear distance between parallel reinforcement bars in a beam is:",options:["Bar diameter or 20mm (whichever is greater)","10mm","5mm","25mm regardless"],correct:0,explanation:"Minimum clear distance between bars is the greater of the bar diameter or 20mm, to allow concrete to flow between bars.",difficulty:"Medium",topic:"Concrete Design"},
+            {id:77,question:"In post-tensioned concrete, ducts are grouted after stressing to:",options:["Increase weight","Protect tendons from corrosion","Increase friction","Reduce prestress losses"],correct:1,explanation:"Grout injection in post-tensioned ducts protects tendons from corrosion and bonds them to the concrete after stressing.",difficulty:"Hard",topic:"Prestressed Concrete"},
+            {id:78,question:"What is the purpose of expansion joints in buildings?",options:["Allow for thermal expansion and structural movement","Increase strength","Reduce reinforcement","Improve appearance"],correct:0,explanation:"Expansion joints allow buildings to move freely under thermal expansion/contraction and other movements without inducing stress.",difficulty:"Easy",topic:"Structural Analysis"},
+            {id:79,question:"The maximum height for a G+12 building classification as per Dubai Municipality is approximately:",options:["36 metres","45 metres","50 metres","60 metres"],correct:1,explanation:"G+12 buildings are typically up to 45 metres in height, requiring enhanced structural, fire safety, and services design.",difficulty:"Hard",topic:"Loads & Forces"},
+            {id:80,question:"Which document governs structural loading standards most commonly used in UAE/Dubai?",options:["BS 6399","ASCE 7","UAE BPSD","All of the above"],correct:0,explanation:"BS 6399 (British Standard for loadings) is the primary loading standard referenced in Dubai Municipality structural design requirements.",difficulty:"Medium",topic:"Loads & Forces"},
+            {id:81,question:"Settlement of a foundation is classified as:",options:["Elastic settlement only","Consolidation settlement only","Elastic + consolidation + secondary compression","Lateral movement"],correct:2,explanation:"Total settlement = immediate (elastic) settlement + primary consolidation settlement + secondary compression (creep).",difficulty:"Hard",topic:"Foundation"},
+            {id:82,question:"The water table in Dubai is approximately:",options:["Very deep (>30m)","Deep (15-30m)","Shallow (1-5m)","At surface"],correct:2,explanation:"Dubai's water table is typically shallow (1-5m depth), making dewatering essential for all deep excavations.",difficulty:"Medium",topic:"Foundation"},
+            {id:83,question:"Sulphate attack on concrete occurs when:",options:["Temperature drops","Sulphate in soil/water reacts with concrete","Aggregate is too large","Steel corrodes"],correct:1,explanation:"Sulphate attack occurs when sulphates in aggressive soil or groundwater react with the cement hydration products, causing expansion and deterioration.",difficulty:"Medium",topic:"Concrete Design"},
+            {id:84,question:"Sulphate-resistant cement (SRPC) is required when soil sulphate content exceeds:",options:["0.2%","0.4%","0.5%","1.0%"],correct:1,explanation:"Sulphate-resistant Portland cement (SRPC) is required when ground sulphate content exceeds 0.4% (Class 3 exposure).",difficulty:"Hard",topic:"Concrete Design"},
+            {id:85,question:"The recommended minimum grade of concrete for piles in Dubai aggressive ground conditions is:",options:["C30","C35","C40","C45"],correct:2,explanation:"C40 minimum concrete grade is required for piles in Dubai due to aggressive sulphate-rich groundwater and saline conditions.",difficulty:"Hard",topic:"Foundation"},
+            {id:86,question:"What does BOQ stand for in construction?",options:["Bill of Quantities","Building Operations Quality","Basic Order Quantity","Block of Quality"],correct:0,explanation:"BOQ (Bill of Quantities) is a document listing all materials, parts, and labour required in a construction project, used for cost estimation.",difficulty:"Easy",topic:"Concrete Design"},
+            {id:87,question:"In beam design, the tension reinforcement is placed at:",options:["Top of beam","Bottom of beam (simply supported)","Both top and bottom","Centre"],correct:1,explanation:"For a simply supported beam, maximum sagging moment causes tension in the bottom fibre, so tension steel is placed at the bottom.",difficulty:"Easy",topic:"Concrete Design"},
+            {id:88,question:"In a cantilever beam, tension reinforcement is placed at:",options:["Bottom","Top","Centre","Both"],correct:1,explanation:"In a cantilever beam, hogging moment causes tension in the top fibre, so tension reinforcement must be placed at the top.",difficulty:"Easy",topic:"Concrete Design"},
+            {id:89,question:"The maximum slenderness ratio for a compression member (column) to be classified as short is:",options:["12","15","20","25"],correct:1,explanation:"A column is classified as short when the slenderness ratio ≤ 15 (le/h), beyond which additional moments from buckling must be considered.",difficulty:"Hard",topic:"Concrete Design"},
+            {id:90,question:"What is the main purpose of a ground beam in a pile foundation system?",options:["Transfer horizontal loads between pile caps","Provide ground floor slab support","Tie pile caps together and distribute loads","All of the above"],correct:3,explanation:"Ground beams tie pile caps together, resist horizontal loads (wind/seismic), transfer loads between pile caps, and support ground floor slabs.",difficulty:"Medium",topic:"Foundation"},
+            {id:91,question:"The standard compaction test for soil is:",options:["Proctor Test","SPT","CPT","Plate load test"],correct:0,explanation:"The Proctor compaction test (Standard or Modified) determines the optimum moisture content and maximum dry density for soil compaction.",difficulty:"Easy",topic:"Foundation"},
+            {id:92,question:"Chloride-induced corrosion of reinforcement in concrete occurs at chloride content above:",options:["0.1%","0.4%","0.5%","1.0%"],correct:1,explanation:"Chloride content above 0.4% by weight of cement initiates depassivation of steel and triggers corrosion in reinforced concrete.",difficulty:"Hard",topic:"Concrete Design"},
+            {id:93,question:"The purpose of epoxy-coated reinforcement bars is:",options:["Increase bond strength","Prevent corrosion","Increase ductility","Reduce weight"],correct:1,explanation:"Epoxy-coated bars provide a barrier against chloride and moisture penetration, preventing corrosion in aggressive environments like Dubai.",difficulty:"Medium",topic:"Materials"},
+            {id:94,question:"What is the minimum number of bars required in a circular pile section?",options:["3","4","6","8"],correct:2,explanation:"A minimum of 6 longitudinal bars are required in a circular pile section to ensure uniform load distribution and structural integrity.",difficulty:"Medium",topic:"Foundation"},
+            {id:95,question:"The purpose of bentonite slurry in bored pile construction is:",options:["Lubricate drill bit","Support borehole walls from collapse","Mix with concrete","Increase pile capacity"],correct:1,explanation:"Bentonite slurry is used in bored pile construction to stabilise borehole walls, preventing collapse before concrete is poured.",difficulty:"Medium",topic:"Foundation"},
+            {id:96,question:"What is the standard test for concrete permeability?",options:["Slump test","Water penetration test (BS EN 12390-8)","Core test","Rebound hammer test"],correct:1,explanation:"The water penetration test (BS EN 12390-8) measures concrete impermeability, critical for durability in aggressive UAE environments.",difficulty:"Hard",topic:"Concrete Design"},
+            {id:97,question:"The design life for residential and commercial buildings as per Dubai Municipality is:",options:["25 years","50 years","100 years","75 years"],correct:1,explanation:"Dubai Municipality requires a minimum 50-year design life for residential and commercial buildings.",difficulty:"Medium",topic:"Concrete Design"},
+            {id:98,question:"What does QS stand for in construction?",options:["Quality Standard","Quantity Surveyor","Quick Schedule","Quality Survey"],correct:1,explanation:"QS stands for Quantity Surveyor – a professional responsible for cost management, BOQ preparation, and contract administration in construction.",difficulty:"Easy",topic:"Construction Methods"},
+            {id:99,question:"The purpose of a retaining wall is to:",options:["Support roof loads","Retain soil/earth at different levels","Resist wind loads","All of the above"],correct:1,explanation:"Retaining walls retain soil or backfill at different ground levels, resisting earth pressure, hydrostatic pressure, and surcharge loads.",difficulty:"Easy",topic:"Foundation"},
+            {id:100,question:"Carbonation of concrete leads to:",options:["Increased strength","Corrosion of reinforcement due to reduced pH","Improved durability","Reduced permeability"],correct:1,explanation:"CO₂ reacts with concrete's alkaline calcium hydroxide (carbonation), reducing pH from ~12.5 to ~8, depassivating steel and causing corrosion.",difficulty:"Hard",topic:"Concrete Design"}
+        );
+
+        // ========== G+12 EXAM TUTOR FUNCTIONS ==========
+        let activeTopicFilter = '';
+        let activeDifficultyFilter = '';
+
+        function filterByTopic() {
+            activeTopicFilter = document.getElementById('topic-filter')?.value || '';
+            activeDifficultyFilter = document.getElementById('difficulty-filter')?.value || '';
+            const filtered = getFilteredQuestions();
+            const badge = document.getElementById('question-count-badge');
+            if (badge) badge.textContent = filtered.length + ' questions available';
+        }
+
+        function getFilteredQuestions() {
+            return QUESTIONS_DB.filter(q => {
+                const topicMatch = !activeTopicFilter || q.topic === activeTopicFilter;
+                const diffMatch = !activeDifficultyFilter || q.difficulty === activeDifficultyFilter;
+                return topicMatch && diffMatch;
             });
         }
 
@@ -1234,18 +1393,22 @@ Delivery: Within agreed timeline</textarea>
             saveState();
             updateCountdown();
             setInterval(updateCountdown, 1000);
+            filterByTopic(); // update badge
         }
 
         function loadNextQuestion() {
             const { questionsAsked } = APP_STATE.memoryTest;
             
+            // Apply topic/difficulty filters
+            let pool = getFilteredQuestions();
+            
             // Find a question that hasn't been asked
-            let availableQuestions = QUESTIONS_DB.filter(q => !questionsAsked.includes(q.id));
+            let availableQuestions = pool.filter(q => !questionsAsked.includes(q.id));
             
             if (availableQuestions.length === 0) {
                 // Reset if all questions have been asked
                 APP_STATE.memoryTest.questionsAsked = [];
-                availableQuestions = QUESTIONS_DB;
+                availableQuestions = pool;
             }
             
             const randomIndex = Math.floor(Math.random() * availableQuestions.length);
@@ -1256,9 +1419,15 @@ Delivery: Within agreed timeline</textarea>
 
         function displayQuestion(question) {
             const container = document.getElementById('question-display');
+            const diffColor = {Easy:'#28a745',Medium:'#ffc107',Hard:'#dc3545'}[question.difficulty] || '#666';
+            const explanation = question.explanation.replace(/'/g, "\\'").replace(/"/g, '&quot;');
             
             const html = `
                 <div class="question-container">
+                    <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+                        <span style="background:${diffColor};color:#fff;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:bold;">${question.difficulty}</span>
+                        <span style="background:var(--primary-color);color:#fff;padding:3px 10px;border-radius:20px;font-size:12px;">${question.topic}</span>
+                    </div>
                     <div class="question-text">${question.question}</div>
                     <div class="options-container" id="options-container">
                         ${question.options.map((option, index) => `
@@ -1269,8 +1438,8 @@ Delivery: Within agreed timeline</textarea>
                         `).join('')}
                     </div>
                     <div class="mt-20">
-                        <button class="btn btn-primary" onclick="submitAnswer(${question.id}, ${question.correct}, '${question.explanation}', '${question.topic}')">Submit Answer</button>
-                        <button class="btn btn-secondary" onclick="loadNextQuestion()">Skip</button>
+                        <button class="btn btn-primary" onclick="submitAnswer(${question.id}, ${question.correct}, '${explanation}', '${question.topic}')">Submit Answer</button>
+                        <button class="btn btn-secondary" onclick="loadNextQuestion()">Next Question</button>
                     </div>
                     <div id="explanation-area"></div>
                 </div>
@@ -1622,10 +1791,11 @@ Delivery: Within agreed timeline</textarea>
             
             const itemHtml = `
                 <div class="form-group" style="border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; margin-bottom: 15px;" id="invoice-item-${itemId}">
-                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px;">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 10px;">
                         <input type="text" placeholder="Description" id="inv-desc-${itemId}" class="invoice-item-desc">
-                        <input type="number" placeholder="Qty" id="inv-qty-${itemId}" class="invoice-item-qty" value="1" min="1">
-                        <input type="number" placeholder="Rate" id="inv-rate-${itemId}" class="invoice-item-rate" value="0" min="0">
+                        <input type="number" placeholder="Rate (AED)" id="inv-rate-${itemId}" class="invoice-item-rate" value="0" min="0" oninput="calcInvItemTotal(${itemId})">
+                        <input type="number" placeholder="%" id="inv-pct-${itemId}" class="invoice-item-pct" value="100" min="0" max="100" oninput="calcInvItemTotal(${itemId})">
+                        <input type="number" placeholder="Total" id="inv-total-${itemId}" class="invoice-item-total" value="0" readonly style="background:#f0f0f0;">
                     </div>
                     <button class="btn btn-danger" style="margin-top: 10px;" onclick="removeInvoiceItem(${itemId})">Remove Item</button>
                 </div>
@@ -1633,6 +1803,14 @@ Delivery: Within agreed timeline</textarea>
             
             container.insertAdjacentHTML('beforeend', itemHtml);
             APP_STATE.currentInvoiceItems.push({ id: itemId });
+        }
+
+        function calcInvItemTotal(itemId) {
+            const rate = parseFloat(document.getElementById(`inv-rate-${itemId}`)?.value) || 0;
+            const pct = parseFloat(document.getElementById(`inv-pct-${itemId}`)?.value) || 0;
+            const total = rate * pct / 100;
+            const totalEl = document.getElementById(`inv-total-${itemId}`);
+            if (totalEl) totalEl.value = total.toFixed(2);
         }
 
         function removeInvoiceItem(itemId) {
@@ -1644,89 +1822,142 @@ Delivery: Within agreed timeline</textarea>
             let subtotal = 0;
             
             APP_STATE.currentInvoiceItems.forEach(item => {
-                const qty = parseFloat(document.getElementById(`inv-qty-${item.id}`)?.value) || 0;
                 const rate = parseFloat(document.getElementById(`inv-rate-${item.id}`)?.value) || 0;
-                subtotal += qty * rate;
+                const pct = parseFloat(document.getElementById(`inv-pct-${item.id}`)?.value) || 100;
+                subtotal += rate * pct / 100;
             });
             
             return subtotal;
         }
 
+        function numberToWords(num) {
+            const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine',
+                'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+            const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+            if (num === 0) return 'Zero';
+            if (num < 20) return ones[num];
+            if (num < 100) return tens[Math.floor(num / 10)] + (num % 10 ? ' ' + ones[num % 10] : '');
+            if (num < 1000) return ones[Math.floor(num / 100)] + ' Hundred' + (num % 100 ? ' ' + numberToWords(num % 100) : '');
+            if (num < 1000000) return numberToWords(Math.floor(num / 1000)) + ' Thousand' + (num % 1000 ? ' ' + numberToWords(num % 1000) : '');
+            if (num < 1000000000) return numberToWords(Math.floor(num / 1000000)) + ' Million' + (num % 1000000 ? ' ' + numberToWords(num % 1000000) : '');
+            return num.toLocaleString();
+        }
+
         function generateInvoicePreview() {
+            const invoiceType = document.getElementById('invoice-type')?.value || 'PAYMENT INVOICE';
             const number = document.getElementById('invoice-number').value;
             const date = document.getElementById('invoice-date').value;
+            const copyNum = document.getElementById('invoice-copy-num')?.value || '1';
+            const copyTotal = document.getElementById('invoice-copy-total')?.value || '2';
+            const project = document.getElementById('invoice-project')?.value || '';
             const clientName = document.getElementById('invoice-client-name').value;
             const clientAddress = document.getElementById('invoice-client-address').value;
             const notes = document.getElementById('invoice-notes').value;
+            const bankName = document.getElementById('invoice-bank-name')?.value || '';
+            const accountName = document.getElementById('invoice-account-name')?.value || '';
+            const accountNumber = document.getElementById('invoice-account-number')?.value || '';
+            const iban = document.getElementById('invoice-iban')?.value || '';
             
             let itemsHtml = '';
-            let subtotal = 0;
+            let grandTotal = 0;
             
             APP_STATE.currentInvoiceItems.forEach(item => {
                 const desc = document.getElementById(`inv-desc-${item.id}`)?.value || '';
-                const qty = parseFloat(document.getElementById(`inv-qty-${item.id}`)?.value) || 0;
                 const rate = parseFloat(document.getElementById(`inv-rate-${item.id}`)?.value) || 0;
-                const amount = qty * rate;
-                subtotal += amount;
+                const pct = parseFloat(document.getElementById(`inv-pct-${item.id}`)?.value) || 100;
+                const amount = rate * pct / 100;
+                grandTotal += amount;
                 
                 if (desc) {
                     itemsHtml += `
                         <tr>
                             <td>${desc}</td>
-                            <td>${qty}</td>
-                            <td>$${rate.toFixed(2)}</td>
-                            <td>$${amount.toFixed(2)}</td>
+                            <td style="text-align:right;">${rate.toFixed(2)}</td>
+                            <td style="text-align:center;">${pct}%</td>
+                            <td style="text-align:right;font-weight:bold;">${amount.toFixed(2)}</td>
                         </tr>
                     `;
                 }
             });
+
+            const totalWords = numberToWords(Math.round(grandTotal));
+            const formattedDate = date ? new Date(date).toLocaleDateString('en-GB', {day:'2-digit',month:'2-digit',year:'numeric'}) : '';
             
             const preview = `
-                <div class="invoice-preview">
-                    <div class="invoice-header">
-                        <h2>INVOICE</h2>
-                        <p><strong>Basel Omar</strong></p>
-                        <p>QS Consultant & Civil Engineer</p>
-                        <p>basel.omar.qs@gmail.com | +971 54 547 2423</p>
-                        <p>baselomar.site</p>
-                    </div>
-                    
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+                <div class="invoice-preview" id="printable-invoice">
+                    <div class="invoice-header" style="display:flex; justify-content:space-between; align-items:flex-start; padding:25px 30px;">
                         <div>
-                            <h3>Bill To:</h3>
-                            <p><strong>${clientName || 'Client Name'}</strong></p>
-                            <p>${clientAddress || 'Client Address'}</p>
+                            <div style="font-size:11px; opacity:0.85; margin-bottom:4px;">invoice: ${copyNum} from ${copyTotal}</div>
+                            <div style="font-size:28px; font-weight:900; letter-spacing:1px;">ENG.</div>
+                            <div style="font-size:22px; font-weight:bold;">Basel Omar</div>
+                            <div style="font-size:13px; opacity:0.9;">Civil Engineer | QS Consultant</div>
                         </div>
-                        <div style="text-align: right;">
-                            <p><strong>Invoice #:</strong> ${number}</p>
-                            <p><strong>Date:</strong> ${date}</p>
+                        <div style="text-align:right;">
+                            <div style="font-size:11px; opacity:0.85;">date: ${formattedDate}</div>
+                            <div style="margin-top:8px; font-size:11px; opacity:0.8;">
+                                🌐 baselomar.site<br>
+                                ✉ basel.omar.qs@gmail.com<br>
+                                📱 +971 54 547 2423
+                            </div>
                         </div>
                     </div>
+
+                    <div style="padding: 20px 30px;">
+                        <div style="background: #f0f4ff; border-left: 4px solid var(--primary-color); padding: 12px 20px; border-radius: 0 8px 8px 0; margin-bottom: 20px;">
+                            <h2 style="margin:0; font-size:18px; color:var(--primary-color);">${invoiceType} NO. ${number}</h2>
+                        </div>
+
+                        ${clientName || project ? `
+                        <div style="margin-bottom: 20px;">
+                            ${clientName ? `<p style="margin:4px 0;"><strong>To:</strong> ${clientName}</p>` : ''}
+                            ${clientAddress ? `<p style="margin:4px 0; font-size:13px; color:#555;">${clientAddress}</p>` : ''}
+                            ${project ? `<p style="margin:8px 0;"><strong>Project:</strong><br><span style="font-size:13px;">${project}</span></p>` : ''}
+                        </div>` : ''}
                     
-                    <table class="invoice-table">
-                        <thead>
-                            <tr>
-                                <th>Description</th>
-                                <th>Quantity</th>
-                                <th>Rate</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${itemsHtml}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="3" style="text-align: right;"><strong>TOTAL:</strong></td>
-                                <td><strong>$${subtotal.toFixed(2)}</strong></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    
-                    ${notes ? `<div style="margin-top: 30px;"><strong>Notes:</strong><p>${notes}</p></div>` : ''}
-                    
-                    <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid var(--border-color); text-align: center;">
-                        <p>Thank you for your business!</p>
+                        <table class="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>DESCRIPTION</th>
+                                    <th style="text-align:right;">RATE</th>
+                                    <th style="text-align:center;">PERCENTAGE</th>
+                                    <th style="text-align:right;">TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${itemsHtml || '<tr><td colspan="4" style="text-align:center;color:#aaa;">No items added</td></tr>'}
+                            </tbody>
+                            <tfoot>
+                                <tr style="background: var(--primary-color); color:#fff;">
+                                    <td colspan="2" style="font-weight:bold; font-size:15px;">TOTAL</td>
+                                    <td></td>
+                                    <td style="text-align:right; font-weight:bold; font-size:15px;">${grandTotal.toFixed(2)} DHS.</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="font-style:italic; font-size:12px; color:#555; padding-top:8px;">
+                                        ${totalWords} Dirhams only
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        ${(bankName || accountName) ? `
+                        <div style="margin-top: 25px; padding: 15px; background:#f8f9ff; border:1px solid #dde3f5; border-radius:8px;">
+                            <h4 style="color:var(--primary-color); margin:0 0 10px;">Pay to:</h4>
+                            ${bankName ? `<p style="margin:4px 0;"><strong>Bank:</strong> ${bankName}</p>` : ''}
+                            ${accountName ? `<p style="margin:4px 0;"><strong>Account Name:</strong> ${accountName}</p>` : ''}
+                            ${accountNumber ? `<p style="margin:4px 0;"><strong>Account Number:</strong> ${accountNumber}</p>` : ''}
+                            ${iban ? `<p style="margin:4px 0;"><strong>IBAN:</strong> ${iban}</p>` : ''}
+                        </div>` : ''}
+                        
+                        ${notes ? `
+                        <div style="margin-top: 20px; padding: 12px 16px; background:#fffbf0; border:1px solid #f0e0a0; border-radius:8px;">
+                            <strong style="font-size:12px;">Note:</strong>
+                            <p style="font-size:12px; margin:4px 0; color:#555;">${notes}</p>
+                        </div>` : ''}
+                        
+                        <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid var(--border-color); text-align: center; color:#555; font-size:13px;">
+                            <p style="font-size:22px; margin-bottom:5px;">Thank you for your business! 🙏</p>
+                        </div>
                     </div>
                 </div>
             `;
@@ -1743,8 +1974,8 @@ Delivery: Within agreed timeline</textarea>
                 notes: document.getElementById('invoice-notes').value,
                 items: APP_STATE.currentInvoiceItems.map(item => ({
                     description: document.getElementById(`inv-desc-${item.id}`)?.value,
-                    quantity: document.getElementById(`inv-qty-${item.id}`)?.value,
-                    rate: document.getElementById(`inv-rate-${item.id}`)?.value
+                    rate: document.getElementById(`inv-rate-${item.id}`)?.value,
+                    percentage: document.getElementById(`inv-pct-${item.id}`)?.value
                 })),
                 timestamp: getAbuDhabiTime()
             };
@@ -1757,37 +1988,16 @@ Delivery: Within agreed timeline</textarea>
         function downloadInvoicePDF() {
             generateInvoicePreview();
             
-            // Since external libraries are blocked, use browser print functionality
-            // This will allow users to save as PDF through their browser
-            alert('Click OK to open print dialog. You can save as PDF from the print dialog.');
+            // Use CSS print media to show only the invoice
+            const printCSS = document.getElementById('print-style');
+            if (!printCSS) {
+                const style = document.createElement('style');
+                style.id = 'print-style';
+                style.innerHTML = `@media print { body > * { display: none !important; } main { display: block !important; } .section { display: none !important; } #invoice { display: block !important; } #invoice .card > .card-header, #invoice .card > .grid > div:first-child { display: none !important; } #invoice .card, #invoice .grid, #invoice .grid > div:last-child { display: block !important; padding: 0 !important; border: none !important; box-shadow: none !important; } }`;
+                document.head.appendChild(style);
+            }
             
-            // Hide everything except the invoice preview
-            const sections = document.querySelectorAll('.section');
-            const header = document.querySelector('header');
-            const footer = document.querySelector('footer');
-            const invoiceForm = document.querySelector('#invoice .grid > div:first-child');
-            
-            // Store original display values
-            const originalDisplay = {
-                header: header.style.display,
-                footer: footer.style.display,
-                form: invoiceForm.style.display
-            };
-            
-            // Hide everything except preview
-            header.style.display = 'none';
-            footer.style.display = 'none';
-            invoiceForm.style.display = 'none';
-            
-            // Print
             window.print();
-            
-            // Restore original display
-            setTimeout(() => {
-                header.style.display = originalDisplay.header;
-                footer.style.display = originalDisplay.footer;
-                invoiceForm.style.display = originalDisplay.form;
-            }, 100);
         }
 
         // ========== QUOTATION FUNCTIONS ==========
@@ -1803,10 +2013,11 @@ Delivery: Within agreed timeline</textarea>
             
             const itemHtml = `
                 <div class="form-group" style="border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; margin-bottom: 15px;" id="quote-item-${itemId}">
-                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px;">
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 10px;">
                         <input type="text" placeholder="Service Description" id="quote-desc-${itemId}" class="quote-item-desc">
-                        <input type="number" placeholder="Qty" id="quote-qty-${itemId}" class="quote-item-qty" value="1" min="1">
-                        <input type="number" placeholder="Rate" id="quote-rate-${itemId}" class="quote-item-rate" value="0" min="0">
+                        <input type="number" placeholder="Unit Price (AED)" id="quote-rate-${itemId}" class="quote-item-rate" value="0" min="0" oninput="calcQuoteItemTotal(${itemId})">
+                        <input type="number" placeholder="Qty" id="quote-qty-${itemId}" class="quote-item-qty" value="1" min="1" oninput="calcQuoteItemTotal(${itemId})">
+                        <input type="number" placeholder="Total" id="quote-total-${itemId}" class="quote-item-total" value="0" readonly style="background:#f0f0f0;">
                     </div>
                     <button class="btn btn-danger" style="margin-top: 10px;" onclick="removeQuoteItem(${itemId})">Remove Item</button>
                 </div>
@@ -1814,6 +2025,14 @@ Delivery: Within agreed timeline</textarea>
             
             container.insertAdjacentHTML('beforeend', itemHtml);
             APP_STATE.currentQuoteItems.push({ id: itemId });
+        }
+
+        function calcQuoteItemTotal(itemId) {
+            const rate = parseFloat(document.getElementById(`quote-rate-${itemId}`)?.value) || 0;
+            const qty = parseFloat(document.getElementById(`quote-qty-${itemId}`)?.value) || 0;
+            const total = rate * qty;
+            const totalEl = document.getElementById(`quote-total-${itemId}`);
+            if (totalEl) totalEl.value = total.toFixed(2);
         }
 
         function removeQuoteItem(itemId) {
@@ -1831,76 +2050,102 @@ Delivery: Within agreed timeline</textarea>
             
             let itemsHtml = '';
             let subtotal = 0;
+            let rowNum = 1;
             
             APP_STATE.currentQuoteItems.forEach(item => {
                 const desc = document.getElementById(`quote-desc-${item.id}`)?.value || '';
-                const qty = parseFloat(document.getElementById(`quote-qty-${item.id}`)?.value) || 0;
                 const rate = parseFloat(document.getElementById(`quote-rate-${item.id}`)?.value) || 0;
-                const amount = qty * rate;
+                const qty = parseFloat(document.getElementById(`quote-qty-${item.id}`)?.value) || 1;
+                const amount = rate * qty;
                 subtotal += amount;
                 
                 if (desc) {
                     itemsHtml += `
                         <tr>
+                            <td style="text-align:center;">${rowNum++}</td>
                             <td>${desc}</td>
-                            <td>${qty}</td>
-                            <td>$${rate.toFixed(2)}</td>
-                            <td>$${amount.toFixed(2)}</td>
+                            <td style="text-align:right;">${rate.toFixed(2)}</td>
+                            <td style="text-align:center;">${qty}</td>
+                            <td style="text-align:right;font-weight:bold;">${amount.toFixed(2)}</td>
                         </tr>
                     `;
                 }
             });
+
+            const formattedDate = date ? new Date(date).toLocaleDateString('en-GB', {day:'2-digit',month:'2-digit',year:'numeric'}) : '';
+            const validUntil = date ? new Date(new Date(date).getTime() + parseInt(validity || 30) * 86400000).toLocaleDateString('en-GB', {day:'2-digit',month:'2-digit',year:'numeric'}) : '';
+            const totalWords = numberToWords(Math.round(subtotal));
             
             const preview = `
-                <div class="invoice-preview">
-                    <div class="invoice-header">
-                        <h2>QUOTATION</h2>
-                        <p><strong>Basel Omar</strong></p>
-                        <p>QS Consultant & Civil Engineer</p>
-                        <p>basel.omar.qs@gmail.com | +971 54 547 2423</p>
-                        <p>baselomar.site</p>
-                    </div>
-                    
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+                <div class="invoice-preview" id="printable-quote">
+                    <div class="invoice-header" style="display:flex; justify-content:space-between; align-items:flex-start; padding:25px 30px;">
                         <div>
-                            <h3>To:</h3>
-                            <p><strong>${clientName || 'Client Name'}</strong></p>
-                            <p><strong>Project:</strong> ${projectName || 'Project Name'}</p>
+                            <div style="font-size:32px; font-weight:900; letter-spacing:2px; margin-bottom:4px;">QUOTATION</div>
+                            <div style="font-size:28px; font-weight:900; letter-spacing:1px;">ENG.</div>
+                            <div style="font-size:22px; font-weight:bold;">Basel Omar</div>
+                            <div style="font-size:13px; opacity:0.9;">Civil Engineer | QS Consultant</div>
                         </div>
-                        <div style="text-align: right;">
-                            <p><strong>Quotation #:</strong> ${number}</p>
-                            <p><strong>Date:</strong> ${date}</p>
-                            <p><strong>Valid for:</strong> ${validity} days</p>
+                        <div style="text-align:right;">
+                            <div style="font-size:11px; opacity:0.85; margin-bottom:8px;">date: ${formattedDate}</div>
+                            <div style="font-size:11px; opacity:0.8;">
+                                🌐 baselomar.site<br>
+                                ✉ basel.omar.qs@gmail.com<br>
+                                📱 +971 54 547 2423
+                            </div>
                         </div>
                     </div>
-                    
-                    <table class="invoice-table">
-                        <thead>
-                            <tr>
-                                <th>Service Description</th>
-                                <th>Quantity</th>
-                                <th>Rate</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${itemsHtml}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="3" style="text-align: right;"><strong>GRAND TOTAL:</strong></td>
-                                <td><strong>$${subtotal.toFixed(2)}</strong></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    
-                    <div style="margin-top: 30px;">
-                        <h3>Terms & Conditions:</h3>
-                        <p style="white-space: pre-line;">${terms}</p>
-                    </div>
-                    
-                    <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid var(--border-color); text-align: center;">
-                        <p>Thank you for considering our services!</p>
+
+                    <div style="padding: 20px 30px;">
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px;">
+                            <div style="padding:12px 16px; background:#f0f4ff; border-radius:8px;">
+                                <p style="margin:0 0 4px; font-size:11px; color:#666; text-transform:uppercase; letter-spacing:1px;">Quotation To</p>
+                                <p style="margin:0; font-weight:bold; font-size:15px;">${clientName || '—'}</p>
+                                ${projectName ? `<p style="margin:4px 0 0; font-size:13px; color:#555;">${projectName}</p>` : ''}
+                            </div>
+                            <div style="padding:12px 16px; background:#f0f4ff; border-radius:8px;">
+                                <p style="margin:0 0 4px; font-size:11px; color:#666; text-transform:uppercase; letter-spacing:1px;">Quotation Details</p>
+                                <p style="margin:0; font-size:13px;"><strong>Ref #:</strong> ${number}</p>
+                                <p style="margin:2px 0; font-size:13px;"><strong>Date:</strong> ${formattedDate}</p>
+                                <p style="margin:2px 0; font-size:13px;"><strong>Valid Until:</strong> ${validUntil}</p>
+                            </div>
+                        </div>
+
+                        <table class="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th style="width:40px; text-align:center;">#</th>
+                                    <th>SERVICE DESCRIPTION</th>
+                                    <th style="text-align:right;">UNIT PRICE</th>
+                                    <th style="text-align:center;">QTY</th>
+                                    <th style="text-align:right;">TOTAL (AED)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${itemsHtml || '<tr><td colspan="5" style="text-align:center;color:#aaa;">No items added</td></tr>'}
+                            </tbody>
+                            <tfoot>
+                                <tr style="background: var(--primary-color); color:#fff;">
+                                    <td colspan="3" style="font-weight:bold; font-size:15px;">GRAND TOTAL</td>
+                                    <td></td>
+                                    <td style="text-align:right; font-weight:bold; font-size:15px;">${subtotal.toFixed(2)} AED</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" style="font-style:italic; font-size:12px; color:#555; padding-top:8px;">
+                                        ${totalWords} UAE Dirhams only
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        
+                        ${terms ? `
+                        <div style="margin-top: 25px; padding: 15px 20px; background:#f8f9ff; border-left: 3px solid var(--primary-color); border-radius: 0 8px 8px 0;">
+                            <h4 style="color:var(--primary-color); margin:0 0 10px; font-size:14px;">Terms & Conditions</h4>
+                            <p style="white-space: pre-line; font-size:13px; color:#444; margin:0;">${terms}</p>
+                        </div>` : ''}
+                        
+                        <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid var(--border-color); text-align: center; color:#555; font-size:13px;">
+                            <p style="font-size:20px; margin-bottom:5px;">Thank you for considering our services! 🙏</p>
+                        </div>
                     </div>
                 </div>
             `;
@@ -1918,8 +2163,8 @@ Delivery: Within agreed timeline</textarea>
                 terms: document.getElementById('quote-terms').value,
                 items: APP_STATE.currentQuoteItems.map(item => ({
                     description: document.getElementById(`quote-desc-${item.id}`)?.value,
-                    quantity: document.getElementById(`quote-qty-${item.id}`)?.value,
-                    rate: document.getElementById(`quote-rate-${item.id}`)?.value
+                    rate: document.getElementById(`quote-rate-${item.id}`)?.value,
+                    quantity: document.getElementById(`quote-qty-${item.id}`)?.value
                 })),
                 timestamp: getAbuDhabiTime()
             };
@@ -1932,35 +2177,16 @@ Delivery: Within agreed timeline</textarea>
         function downloadQuotePDF() {
             generateQuotePreview();
             
-            // Since external libraries are blocked, use browser print functionality
-            alert('Click OK to open print dialog. You can save as PDF from the print dialog.');
+            // Use CSS print media to show only the quotation
+            const printCSS = document.getElementById('print-style');
+            if (!printCSS) {
+                const style = document.createElement('style');
+                style.id = 'print-style';
+                style.innerHTML = `@media print { body > * { display: none !important; } main { display: block !important; } .section { display: none !important; } #quotation { display: block !important; } #quotation .card > .card-header, #quotation .card > .grid > div:first-child { display: none !important; } #quotation .card, #quotation .grid, #quotation .grid > div:last-child { display: block !important; padding: 0 !important; border: none !important; box-shadow: none !important; } }`;
+                document.head.appendChild(style);
+            }
             
-            // Hide everything except the quotation preview
-            const header = document.querySelector('header');
-            const footer = document.querySelector('footer');
-            const quoteForm = document.querySelector('#quotation .grid > div:first-child');
-            
-            // Store original display values
-            const originalDisplay = {
-                header: header.style.display,
-                footer: footer.style.display,
-                form: quoteForm.style.display
-            };
-            
-            // Hide everything except preview
-            header.style.display = 'none';
-            footer.style.display = 'none';
-            quoteForm.style.display = 'none';
-            
-            // Print
             window.print();
-            
-            // Restore original display
-            setTimeout(() => {
-                header.style.display = originalDisplay.header;
-                footer.style.display = originalDisplay.footer;
-                quoteForm.style.display = originalDisplay.form;
-            }, 100);
         }
 
         // ========== DASHBOARD FUNCTIONS ==========
@@ -2029,6 +2255,7 @@ Delivery: Within agreed timeline</textarea>
             initializeInvoice();
             initializeQuotation();
             updateDashboard();
+            filterByTopic(); // initialize exam tutor badge
             
             // Set up periodic dashboard updates
             setInterval(updateDashboard, 30000); // Update every 30 seconds
